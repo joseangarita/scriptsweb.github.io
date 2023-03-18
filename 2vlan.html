@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vlans Sw</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+      }
+      h1 {
+        text-align: left;
+      }
+      form {
+        width: auto;
+        margin: auto;
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 1px;
+        font-weight: bold;
+      }
+      select, input[type="text"] {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      #comandos {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        width: auto;
+        margin: 20px auto;
+        box-sizing: border-box;
+        float: center;
+        white-space: pre;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      textarea {
+        width: auto;
+        height: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: monospace;
+        font-size: 14px;
+        margin-bottom: 20px;
+        float: center;
+      }
+      button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .generar { 
+        background-color: #3e8e41;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .reset {
+        background-color: red;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>COMANDOS APROV Sw Core</h1>
+    <form>
+      <label for="equipo">EQUIPO:</label>
+      <select name="equipo" id="equipo">
+        <!-- <option value=""></option> -->
+        <option value="raisecom">Raisecom</option>
+        <option value="imap">iMap</option>
+        <option value="at">AT</option>
+        <option value="bdcom">Bdcom</option>
+      </select>
+      <br>
+      <label for="vlan_id">ID Vlan:</label>
+      <input type="number" id="vlan_id" name="vlan_id">
+      <br><br>
+      <label for="vlan_name">Descripción Vlan:</label>
+      <input type="text" id="vlan_name" name="vlan_name">
+      <br>
+      <label for="pto_wan">Puerto WAN:</label>
+      <input type="text" id="pto_wan" name="pto_wan">
+      <br><br>
+      <label for="pto_lan">Puerto LAN:</label>
+      <input type="text" id="pto_lan" name="pto_lan">
+      <br><br>
+      <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+      <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br><br>
+    </form>
+    
+    <div id="comandos"></div><br>
+    <!-- <textarea id="comandos" rows="30" cols="100"></textarea> -->
+    <script>
+      function resetForm() {
+        document.getElementById("equipo").selectedIndex = 0;
+        document.getElementById("vlan_id").value = "";
+        document.getElementById("vlan_name").value = "";
+        document.getElementById("pto_wan").value = "";
+        document.getElementById("pto_lan").value = "";
+        document.getElementById("comandos").innerHTML = "";
+      }
+      function generarComandos() {
+        var equipo = document.getElementById("equipo").value;
+        var vlan_id = document.getElementById("vlan_id").value;
+        var vlan_name = document.getElementById("vlan_name").value;
+        var pto_wan = document.getElementById("pto_wan").value;
+        var pto_lan = document.getElementById("pto_lan").value;
+        
+        var comandos = "";
+        if (equipo == "raisecom") {
+          comandos =  "jangarita" + "\n" +
+                      "jose9855" + "\n" +
+                      "ena " + "\n" +
+                      "show vlan " + vlan_id + "\n" +
+                      "conf terminal " + "\n" +
+                      "vlan " + vlan_id + "\n" +
+                      "name " + vlan_name + "\n" +
+                      "state activ "  + "\n" +
+                      "exit  " + "\n" + "\n" + 
+                      "int range " + pto_wan + "\n" + 
+                      "swi tru allow vlan add " + vlan_id + "\n" +
+                      "int range " + pto_lan + "\n" + 
+                      "swi tru allow vlan add " + vlan_id + "\n" +
+                      "exit" + "\n" +
+                      "exit " + "\n" +
+                      "sh vlan " + vlan_id + "\n" + 
+                      "write " + "\n" +
+                      "exit" + "\n";
+                      
+        } else if (equipo == "imap") {
+          comandos =  "jangarita" + "\n" +
+                      "jose9855" + "\n" + "\n" +
+                      "ena ma" + "\n" + "\n" +
+                      "1n0c" + "\n" + "\n" +
+                      "show vlan " + vlan_id + "\n" +
+                      "crea vlan " + vlan_name + " vid " + vlan_id + "\n" +
+                      "add vlan " + vlan_id + " interf " + pto_wan + " frame tag" + "\n" +
+                      "add vlan " + vlan_id + " interf " + pto_lan + " frame tag" + "\n" +
+                      "sh vlan " + vlan_id + "\n" +
+                      "exit" + "\n" +
+                      "exit" + "\n";
+                      
+        } else if (equipo == "at") {
+                      comandos =  "jangarita" + "\n" +
+                      "jose9855" + "\n" +
+                      "ena " + "\n" +
+                      "show vlan " + vlan_id + "\n" +
+                      "conf terminal " + "\n" +
+                      "vlan data "  + "\n" +
+                      "vlan " + vlan_id + " name " + vlan_name + "\n" +
+                      "exit  " + "\n" + "\n" + 
+                      "int port" + pto_wan + "\n" + 
+                      "swi tru allow vlan add " + vlan_id + "\n" +
+                      "int port" + pto_lan + "\n" + 
+                      "swi tru allow vlan add " + vlan_id + "\n" +
+                      "exit" + "\n" +
+                      "exit " + "\n" +
+                      "sh vlan " + vlan_id + "\n" + 
+                      "write " + "\n" +
+                      "exit" + "\n";
+          } else if (equipo == "bdcom") {
+                      comandos =  "jangarita" + "\n" +
+                      "jose9855" + "\n" + "\n" +
+                      "ena " + "\n" + "\n" +
+                      "1tx7" + "\n" + "\n" +
+                      "show vlan " + vlan_id + "\n" +
+                      "conf" + "\n" +
+                      "vlan " + vlan_id + "\n" +
+                      "name " + vlan_name + "\n" +
+                      "exit  " + "\n" + "\n" + 
+                      "int g " + pto_wan + "\n" + 
+                      "swi trunk vlan-allowed add " + vlan_id + "\n" +
+                      "int g " + pto_lan + "\n" + 
+                      "swi trunk vlan-allowed add " + vlan_id + "\n" +
+                      "exit" + "\n" +
+                      "exit " + "\n" +
+                      "sh vlan " + vlan_id + "\n" + 
+                      "write " + "\n" +
+                      "exit" + "\n";
+             
+        }
+        document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aprov Ip Core</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+      }
+      h1 {
+        text-align: left;
+      }
+      form {
+        width: auto;
+        margin: auto;
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 1px;
+        font-weight: bold;
+      }
+      select, input[type="text"] {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      #comandos {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        width: auto;
+        margin: 20px auto;
+        box-sizing: border-box;
+        float: center;
+        white-space: pre;
+        font-family: monospace;
+        font-size: 12px;
+      }
+      textarea {
+        width: auto;
+        height: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: monospace;
+        font-size: 14px;
+        margin-bottom: 20px;
+        float: center;
+      }
+      button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .generar { 
+        background-color: #3e8e41;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .reset {
+        background-color: red;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>COMANDOS APROV IP CORE</h1>
+    <form>
+      <label for="equipo">EQUIPO CORE:</label>
+      <select name="equipo" id="equipo">
+        <option value="juniper">Juniper</option>
+        <option value="cisco">Cisco</option>
+      </select>
+      <br>
+      <label for="wan_ipv4">Ip WAN IPv4:</label>
+      <input type="text" id="wan_ipv4" name="wan_ipv4">
+      <br>
+      <label for="red_lan_ipv4">Red LAN IPv4:</label>
+      <input type="text" id="red_lan_ipv4" name="red_lan_ipv4">
+      <br>
+      <label for="wan_ipv6">Ip WAN IPv6:</label>
+      <input type="text" id="wan_ipv6" name="wan_ipv6">
+      <br>
+      <label for="red_lan_ipv6">Red LAN IPv6:</label>
+      <input type="text" id="red_lan_ipv6" name="red_lan_ipv6">
+      <br>
+      <label for="descrip_ruta">Descripción de la Ruta:</label>
+      <input type="text" id="descrip_ruta" name="descrip_ruta">
+      <br>
+      <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+      <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br><br>
+    </form>
+    
+    <div id="comandos"></div><br>
+    <!-- <textarea id="comandos" rows="30" cols="100"></textarea> -->
+    <script>
+      function resetForm() {
+        document.getElementById("equipo").selectedIndex = 0;
+        document.getElementById("wan_ipv4").value = "";
+        document.getElementById("red_lan_ipv4").value = "";
+        document.getElementById("wan_ipv6").value = "";
+        document.getElementById("red_lan_ipv6").value = "";
+        document.getElementById("descrip_ruta").value = "";
+        document.getElementById("comandos").innerHTML = "";
+      }
+      function generarComandos() {
+        var equipo = document.getElementById("equipo").value;
+        var wan_ipv4 = document.getElementById("wan_ipv4").value;
+        var red_lan_ipv4 = document.getElementById("red_lan_ipv4").value;
+        var wan_ipv6 = document.getElementById("wan_ipv6").value;
+        var red_lan_ipv6 = document.getElementById("red_lan_ipv6").value;
+        var descrip_ruta = document.getElementById("descrip_ruta").value;
+        var comandos = "";
+        if (equipo == "juniper") {
+          comandos =  "show configuration | display set | match " + wan_ipv4 + "\n" +
+                      "show configuration | display set | match " + red_lan_ipv4 + "\n" +
+                      "show configuration | display set | match " + wan_ipv6 + "\n" +
+                      "show configuration | display set | match " + red_lan_ipv6 + "\n" +
+                      "show route table INTERNET.inet.0 " + red_lan_ipv4 + "\n" +
+                      "show route table INTERNET.inet6.0 " + red_lan_ipv6 + "\n" +
+                      "show route receive-protocol bgp " + red_lan_ipv4 + "table INTERNET.inet.0" + "\n" +
+                      "ping routing-instance INTERNET " + wan_ipv4 + "\n" +
+                      "show arp vpn INTERNET | find  " + wan_ipv4 + "\n" + "\n" + 
+                      "edit" + "\n" + 
+                      "set routing-instances INTERNET routing-options static route " + red_lan_ipv4 + " next-hop " + wan_ipv4 + "\n" +
+                      "edit routing-instances INTERNET routing-options static" + "\n" +
+                      "annotate route " + red_lan_ipv4 + " " + descrip_ruta + "\n" +
+                      "top" + "\n" + "\n" + 
+                      "set routing-instances INTERNET routing-options rib INTERNET.inet6.0 static route " + red_lan_ipv6 + " next-hop " + wan_ipv6 + "\n" +
+                      "edit routing-instances INTERNET routing-options rib INTERNET.inet6.0 static" + "\n" +
+                      "annotate route " + red_lan_ipv4 + " " + descrip_ruta + "\n" +
+                      "top" + "\n" +
+                      "show | compare" + "\n" +"\n" + 
+                      "commit" + "\n" +
+                      "exit" + "\n" +"\n" + 
+                      "show route table INTERNET.inet.0 " + red_lan_ipv4 + "\n" +
+                      "show route table INTERNET.inet6.0 " + red_lan_ipv6 + "\n" + "\n" + "\n";
+        } else if (equipo == "cisco") {
+          comandos = "sh run router sta vrf INTERNET | in " + wan_ipv4 + "\n" +
+                      "sh run router sta vrf INTERNET | in " + red_lan_ipv4 + "\n" +
+                      "sh run router sta vrf INTERNET | in " + wan_ipv6 + "\n" +
+                      "sh run router sta vrf INTERNET | in " + red_lan_ipv6 + "\n" +
+                      "sh run router bgp 27951 vrf INTERNET | INclude  " + wan_ipv4 + "\n" +
+                      "sh route vrf INTERNET | include " + red_lan_ipv4 + "\n" +
+                      "sh route vrf INTERNET | include " + wan_ipv4 + "\n" +
+                      "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6 + "\n" + 
+                      "ping vrf INTERNET " + wan_ipv4 + "\n" + 
+                      "ping vrf INTERNET " + wan_ipv6 + "\n" + 
+                      "sh arp vrf INTERNET | Include " + wan_ipv4 + "\n" +
+                      "conf t" + "\n" +  "\n" +
+                      "router sta vrf INTERNET address-family ipv4 unicast" + "\n" +  
+                      red_lan_ipv4 + " " + wan_ipv4 + " description " + descrip_ruta + "\n" + 
+                      "router sta vrf INTERNET address-family ipv6 unicast" + "\n" + 
+                      red_lan_ipv6 + " " + wan_ipv6 + " description " + descrip_ruta + "\n" + 
+                      "root" + "\n"  + "\n" +
+                      "show" + "\n" + 
+                      "commit" + "\n" + "\n" +
+                      "exit" + "\n" + "\n" +
+                      "sh route vrf INTERNET | include " + red_lan_ipv4 + "\n" + 
+                      "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6;
+        }
+        document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
+      }
+    </script>
+  </body>
+</html>
