@@ -93,6 +93,12 @@
         <option value="bdcom">Bdcom</option>
       </select>
       <br>
+      <label for="user">Usuario:</label>
+      <input type="text" id="user" name="user">
+      <br>
+      <label for="pass">Contraseña:</label>
+      <input type="text" id="pass" name="pass">
+      <br>
       <label for="vlan_id">ID Vlan:</label>
       <input type="number" id="vlan_id" name="vlan_id">
       <br><br>
@@ -101,7 +107,7 @@
       <br>
       <label for="pto_wan">Puerto WAN:</label>
       <input type="text" id="pto_wan" name="pto_wan">
-      <br><br>
+      <br>
       <label for="pto_lan">Puerto LAN:</label>
       <input type="text" id="pto_lan" name="pto_lan">
       <br><br>
@@ -114,6 +120,8 @@
     <script>
       function resetForm() {
         document.getElementById("equipo").selectedIndex = 0;
+        document.getElementById("user").value = "";
+        document.getElementById("pass").value = "";
         document.getElementById("vlan_id").value = "";
         document.getElementById("vlan_name").value = "";
         document.getElementById("pto_wan").value = "";
@@ -122,6 +130,8 @@
       }
       function generarComandos() {
         var equipo = document.getElementById("equipo").value;
+        var user = document.getElementById("user").value;
+        var pass = document.getElementById("pass").value;
         var vlan_id = document.getElementById("vlan_id").value;
         var vlan_name = document.getElementById("vlan_name").value;
         var pto_wan = document.getElementById("pto_wan").value;
@@ -129,8 +139,8 @@
         
         var comandos = "";
         if (equipo == "raisecom") {
-          comandos =  "jangarita" + "\n" +
-                      "jose9855" + "\n" +
+          comandos =  user + "\n" +
+                      pass + "\n" + "\n" +
                       "ena " + "\n" +
                       "show vlan " + vlan_id + "\n" +
                       "conf terminal " + "\n" +
@@ -149,8 +159,8 @@
                       "exit" + "\n";
                       
         } else if (equipo == "imap") {
-          comandos =  "jangarita" + "\n" +
-                      "jose9855" + "\n" + "\n" +
+          comandos =  user + "\n" +
+                      pass + "\n" + "\n" +
                       "ena ma" + "\n" + "\n" +
                       "1n0c" + "\n" + "\n" +
                       "show vlan " + vlan_id + "\n" +
@@ -162,8 +172,8 @@
                       "exit" + "\n";
                       
         } else if (equipo == "at") {
-                      comandos =  "jangarita" + "\n" +
-                      "jose9855" + "\n" +
+          comandos =  user + "\n" +
+                      pass + "\n" + "\n" +
                       "ena " + "\n" +
                       "show vlan " + vlan_id + "\n" +
                       "conf terminal " + "\n" +
@@ -180,8 +190,8 @@
                       "write " + "\n" +
                       "exit" + "\n";
           } else if (equipo == "bdcom") {
-                      comandos =  "jangarita" + "\n" +
-                      "jose9855" + "\n" + "\n" +
+            comandos =  user + "\n" +
+                      pass + "\n" + "\n" +
                       "ena " + "\n" + "\n" +
                       "1tx7" + "\n" + "\n" +
                       "show vlan " + vlan_id + "\n" +
