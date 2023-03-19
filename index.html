@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Inicio</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
 			margin: 0;
@@ -44,6 +45,11 @@
 		nav li.active a {
 			background-color: #555;
 		}
+		@media (max-width: 768px) {
+			nav ul {
+				flex-direction: column;
+			}
+			}
 	</style>
 </head>
 <body>
