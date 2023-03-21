@@ -147,7 +147,7 @@
                       "top" + "\n" + "\n" + 
                       "set routing-instances INTERNET routing-options rib INTERNET.inet6.0 static route " + red_lan_ipv6 + " next-hop " + wan_ipv6 + "\n" +
                       "edit routing-instances INTERNET routing-options rib INTERNET.inet6.0 static" + "\n" +
-                      "annotate route " + red_lan_ipv4 + " " + descrip_ruta + "\n" +
+                      "annotate route " + red_lan_ipv6 + " " + descrip_ruta + "\n" +
                       "top" + "\n" +
                       "show | compare" + "\n" +"\n" + 
                       "commit" + "\n" +
