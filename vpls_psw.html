@@ -77,7 +77,32 @@
         border-radius: 5px;
         cursor: pointer;
       }
-
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+		.textarea-container {
+			flex-basis: auto;
+			box-sizing: border-box;
+		}
+		.textarea-container:first-child {
+			order: 1;
+		}
+		.textarea-container:last-child {
+			order: 2;
+		}
+		@media (max-width: auto) {
+			.textarea-container {
+				flex-basis: auto;
+			}
+			.textarea-container:first-child {
+				order: 2;
+			}
+			.textarea-container:last-child {
+				order: 1;
+			}
+		}
     </style>
 </head>
 <body>
@@ -137,436 +162,437 @@
 	</button>
 	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos
 	</button><br><br>
-	<div id="comandos"></div>
+	<!-- <div id="comandos"></div> -->
     <!--<textarea id="comandos" rows="10" cols="50"></textarea> -->
 
+	<div class="container">
+		<div class="textarea-container">
+			<label for="comandosOrigen">Comandos en Nodo Origen:</label>
+			<textarea id="comandosOrigen" readonly style="width: 540px; height: 510px;"></textarea>
+		</div>
+		<div class="textarea-container">
+			<label for="comandosDestino">Comandos en Nodo Destino:</label>
+			<textarea id="comandosDestino" readonly style="width: 540px; height: 510px;"></textarea>
+		</div>
+	</div>
+	
     <script>
       function resetForm() {
         <!-- document.getElementById("nodo_origen").selectedIndex = 0; -->
 		document.getElementById("nodo_origen").value = "";
         document.getElementById("nodo_destino").value = "";
-        document.getElementById("comandos").innerHTML = "";
+        document.getElementById("comandosOrigen").value = "";
+		document.getElementById("comandosDestino").value = "";
       }
         function generarComandos() {
             var nodo_origen = document.getElementById("nodo_origen").value;
             var nodo_destino = document.getElementById("nodo_destino").value;
 			var vlan_id = document.getElementById("vlan_id").value;
             var vlan_name = document.getElementById("vlan_name").value;
-        
+			var lista_comandos = 
+			{
+				'Barranquilla MX':[
+				"## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
+				"edit" + "\n"+
+				"edit interfaces ae4 unit " + vlan_id + "\n"+
+				"set description Enlace-Blla-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae4." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.1"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n" +"\n"+"\n"],
+				
+				'Bogota ASR':[
+				"## BOGOTA ASR 10.248.10.1" + "\n"+
+				"conf t" + "\n" +
+				"interface Bundle-Ether4." + vlan_id + " l2transport" + "\n" +
+				"description Enlace-Bogota_ASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
+				"encapsulation dot1q " + vlan_id + "\n" +
+				"rewrite ingress tag pop 1 symmetric" + "\n" +
+				"exit" + "\n" +
+				"interface Bundle-Ether15." + vlan_id + " l2transport" + "\n" +
+				"description Enlace-Bogota_ASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
+				"encapsulation dot1q " + vlan_id + "\n" +
+				"rewrite ingress tag pop 1 symmetric" + "\n" +
+				"exit" + "\n" +
+				"l2vpn" + "\n" + 
+				"bridge group BG_MST_CENTRO" + "\n" + 
+				"bridge-domain BD_MST-CENTRO-VLAN-" + vlan_id + "\n" + 
+				"mtu 9600" + "\n" + 
+				"interface Bundle-Ether4." + vlan_id + "\n" + 
+				"interface Bundle-Ether15." + vlan_id + "\n" + 
+				"exit" + "\n" + 
+				"vfi " + vlan_name + "\n" + 
+				"neighbor  10.248.10.5 pw-id " + vlan_id + "\n" + 
+				"root" + "\n" + 
+				"show" + "\n" + "\n" + 
+				"commit" + "\n" +
+				"end"  + "\n" + 
+				"show interface Bundle-Ether4."+vlan_id+" brief"+"\n" +
+				"show interface Bundle-Ether15."+vlan_id+" brief"+"\n" +  
+				"show l2vpn bridge-domain bd-name BD_MST-CENTRO-VLAN-"+vlan_id + "\n"+
+				"\n"+ "\n"+"\n"],
+								
+				'Bogota MX':[
+				"## BOGOTA Juniper 10.248.10.15" + "\n" +
+				"edit" + "\n"+
+				"edit interfaces ae3 unit " + vlan_id + "\n"+
+				"set description Enlace-Bogota-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae3." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.5"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n" +"\n"+"\n"],
+				
+				'Bucaramanga MX':[
+				"## BUCARAMANGA Juniper 10.248.10.13" + "\n" +
+				"edit" + "\n"+
+				"edit interfaces ae4 unit " + vlan_id + "\n"+
+				"set description Enlace-Bmanga-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae4." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.15"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+				
+				'Cali ASR':[
+				"## CALI ASR 10.248.10.7" + "\n" +
+				"conf t" + "\n" + 
+				"interface Bundle-Ether5." + vlan_id + " l2transport" + "\n" +
+				"description Enlace-Cali_ASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
+				"encapsulation dot1q " + vlan_id + "\n" +
+				"rewrite ingress tag pop 1 symmetric" + "\n" +
+				"exit" + "\n" +
+				"l2vpn" + "\n" + 
+				"bridge group BG_MST_VALLE" + "\n" + 
+				"bridge-domain BD_MST-VALLE-VLAN-" + vlan_id + "\n" + 
+				"mtu 9600" + "\n" + 
+				"interface Bundle-Ether5." + vlan_id + "\n" + 
+				"exit" + "\n" + 
+				"vfi " + vlan_name + "\n" + 
+				"neighbor 10.248.10.5 pw-id " + vlan_id + "\n" + 
+				"root" + "\n" + 
+				"show" + "\n" + "\n" + 
+				"commit" + "\n" +
+				"end"  + "\n" + 
+				"show interface Bundle-Ether10."+vlan_id+" brief"+"\n" +  
+				"show l2vpn bridge-domain bd-name BD_MST-VALLE-VLAN-"+vlan_id + "\n" +
+				"\n"+ "\n"+"\n"],
+
+				'Cali Norte MX':[
+				"## CALI NORTE Juniper 10.248.1.242" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces et-0/0/2 unit " + vlan_id + "\n"+
+				"set description Enlace-CaliASR-CaliNorte-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface et-0/0/2." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.7"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+				
+				'Cucuta MX':[
+				"## Cucuta Juniper  10.248.10.16" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces ae1 unit " + vlan_id + "\n"+
+				"set description Enlace-Cucuta-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae1." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.1"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Ibague MX':[
+				"## IBAGUE Juniper 10.248.10.14" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces ae2 unit " + vlan_id + "\n"+
+				"set description Enlace-Ibague-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae2." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.1"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Medellin MX':[
+				"## MEDELLIN Juniper 10.248.10.11" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces ae5 unit " + vlan_id + "\n"+
+				"set description Enlace-Medellin-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae5." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.1"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Melendez MX':[
+				"## MELENDEZ Juniper  10.248.1.244" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces xe-0/1/2 unit " + vlan_id + "\n"+
+				"set description Enlace-CaliASR-Melendez-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface xe-0/1/2." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.7"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Monteria MX':[
+				"## MONTERIA Juniper 10.248.10.12" + "\n" +
+				"edit" + "\n"+
+				"edit interfaces ae2 unit " + vlan_id + "\n"+
+				"set description Enlace-Monteria-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae2." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.5"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Municipal MX':[
+				"## MUNICIPAL Juniper 10.248.1.246" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces xe0/1/0 unit " + vlan_id + "\n"+
+				"set description Enlace-CaliASR-Municipal-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface xe0/1/0." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.7"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+								
+				'Pance MX':[
+				"## PANCE Juniper  10.248.1.245" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces xe-0/1/7 unit " + vlan_id + "\n"+
+				"set description Enlace-CaliASR-Pance-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface xe-0/1/7." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.7"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Pasto MX':[
+				"## PASTO Juniper 10.248.10.17" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces ae1 unit " + vlan_id + "\n"+
+				"set description Enlace-Pasto-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae1." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.1"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Pereira MX':[
+				"## PEREIRA Juniper 10.248.10.3" + "\n" +
+				"edit" + "\n"+
+				"edit interfaces ae5 unit " + vlan_id + "\n"+
+				"set description Enlace-Pereira-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface ae5." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.5"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"],
+
+				'Roosevelt MX':[
+				"## ROOSEVELT Juniper  10.248.1.243" + "\n"+
+				"edit" + "\n"+
+				"edit interfaces xe-0/1/0 unit " + vlan_id + "\n"+
+				"set description Enlace-CaliASR-Roosevelt-"+vlan_name+"-vpls-"+vlan_id + "\n"+
+				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
+				"set input-vlan-map pop" + "\n"+
+				"set output-vlan-map push"+ "\n"+
+				"top"+ "\n"+
+				"edit routing-instances VPLS-"+ vlan_id + "\n"+
+				"set instance-type vpls vlan-id all"+ "\n"+ 
+				"set interface xe-0/1/0." + vlan_id + "\n"+
+				"edit protocols vpls"+ "\n"+ 
+				"set mtu 9600" + "\n" + 
+				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
+				"edit neighbor 10.248.10.7"+ "\n"+
+				"set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
+				"top"+ "\n"+
+				"show | compare"+ "\n"+
+				"commit" + "\n"+
+				"exit" + "\n"+
+				"show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
+				"\n"+ "\n"+"\n"]
+			
+			}
+
 			var comandos = "";
-        if ((nodo_origen === "Barranquilla MX" && nodo_destino === "Bogota ASR") || (nodo_origen === "Bogota ASR" && nodo_destino === "Barranquilla MX"))
+        if (lista_comandos[nodo_origen] || lista_comandos[nodo_destino])
           {
-            comandos =
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-BogotaASR-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.1"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## BOGOTA ASR 10.248.10.1" + "\n"+
-            "conf t" + "\n" +
-            "interface Bundle-Ether4." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-Blla-BogASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "interface Bundle-Ether15." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-Blla-BogASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "l2vpn" + "\n" + 
-            "bridge group BG_MST_CENTRO" + "\n" + 
-            "bridge-domain BD_MST-CENTRO-VLAN-" + vlan_id + "\n" + 
-            "mtu 9600" + "\n" + 
-            "interface Bundle-Ether4." + vlan_id + "\n" + 
-            "interface Bundle-Ether15." + vlan_id + "\n" + 
-            "exit" + "\n" + 
-            "vfi " + vlan_name + "\n" + 
-            "neighbor  10.248.10.5 pw-id " + vlan_id + "\n" + 
-            "root" + "\n" + 
-            "show" + "\n" + "\n" + 
-            "commit" + "\n" +
-            "end"  + "\n" + 
-            "show interface Bundle-Ether4."+vlan_id+" brief"+"\n" +
-            "show interface Bundle-Ether15."+vlan_id+" brief"+"\n" +  
-            "show l2vpn bridge-domain bd-name BD_MST-CENTRO-VLAN-"+vlan_id + "\n"+
-            "\n"+ "\n"+"\n";
-        } 
-        else if ((nodo_origen === "Barranquilla MX" && nodo_destino === "Cali ASR") || (nodo_origen === "Cali ASR" && nodo_destino === "Barranquilla MX")) 
-        {
-            comandos =
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-CaliASR-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.7"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## CALI ASR 10.248.10.7" + "\n" +
-            "conf t" + "\n" +
-            "interface Bundle-Ether5." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-ASR-Cali-Blla-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "l2vpn" + "\n" + 
-            "bridge group BG_MST_VALLE" + "\n" + 
-            "bridge-domain BD_MST-VALLE-VLAN-" + vlan_id + "\n" + 
-            "mtu 9600" + "\n" + 
-            "interface Bundle-Ether5." + vlan_id + "\n" + 
-            "exit" + "\n" + 
-            "vfi " + vlan_name + "\n" + 
-            "neighbor 10.248.10.5 pw-id " + vlan_id + "\n" + 
-            "root" + "\n" + 
-            "show" + "\n" + "\n" + 
-            "commit" + "\n" +
-            "end"  + "\n" + 
-            "show interface Bundle-Ether10."+vlan_id+" brief"+"\n" +  
-            "show l2vpn bridge-domain bd-name BD_MST-VALLE-VLAN-"+vlan_id + "\n" +
-            "\n"+ "\n"+"\n";       
-          }
-          else if ((nodo_origen === "Barranquilla MX" && nodo_destino === "Pereira MX") || (nodo_origen === "Pereira MX" && nodo_destino === "Barranquilla MX")) 
-        {
-            comandos =
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Pereira-"+vlan_id + "\n"+ 
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.3"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## PEREIRA Juniper 10.248.10.3" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae5 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Pereira-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae5." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.5"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-          else if ((nodo_origen === "Barranquilla MX" && nodo_destino === "Monteria MX") || (nodo_origen === "Monteria MX" && nodo_destino === "Barranquilla MX")) 
-        {
-            comandos =
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Monteria-"+vlan_id + "\n"+ 
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.12"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## MONTERIA Juniper 10.248.10.12" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae2 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Monteria-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae2." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.5"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-          else if ((nodo_origen === "Barranquilla MX" && nodo_destino === "Monteria MX") || (nodo_origen === "Monteria MX" && nodo_destino === "Barranquilla MX")) 
-        {
-            comandos =
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Monteria-"+vlan_id + "\n"+ 
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.12"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## MONTERIA Juniper 10.248.10.12" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae2 unit " + vlan_id + "\n"+
-            "set description Enlace-Blla-Monteria-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae2." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.5"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-          else if ((nodo_origen === "Bogota MX" && nodo_destino === "Barranquilla MX") || (nodo_origen === "Barranquilla MX" && nodo_destino === "Bogota MX")) 
-        {
-            comandos =
-            "## BOGOTA Juniper 10.248.10.15" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae3 unit " + vlan_id + "\n"+
-            "set description Enlace-Bogota-Blla-"+vlan_id + "\n"+ 
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae3." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.5"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae4 unit " + vlan_id + "\n"+
-            "set description Enlace-Bogota-Blla-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae4." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.15"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-          else if ((nodo_origen === "Bogota MX" && nodo_destino === "Bogota ASR") || (nodo_origen === "Bogota ASR" && nodo_destino === "Bogota MX")) 
-        {
-            comandos =
-            "## BOGOTA Juniper 10.248.10.15" + "\n" +
-            "edit" + "\n"+
-            "edit interfaces ae3 unit " + vlan_id + "\n"+
-            "set description Enlace-BogotaMX-BogotaASR-"+vlan_id + "\n"+ 
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface ae3." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.1"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n" +"\n"+"\n"+
-            
-            "## BOGOTA ASR 10.248.10.1" + "\n"+
-            "conf t" + "\n" +
-            "interface Bundle-Ether4." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-BogotaMX-BogotaASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "interface Bundle-Ether15." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-Blla-BogASR-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "l2vpn" + "\n" + 
-            "bridge group BG_MST_CENTRO" + "\n" + 
-            "bridge-domain BD_MST-CENTRO-VLAN-" + vlan_id + "\n" + 
-            "mtu 9600" + "\n" + 
-            "interface Bundle-Ether4." + vlan_id + "\n" + 
-            "interface Bundle-Ether15." + vlan_id + "\n" + 
-            "exit" + "\n" + 
-            "vfi " + vlan_name + "\n" + 
-            "neighbor  10.248.10.15 pw-id " + vlan_id + "\n" + 
-            "root" + "\n" + 
-            "show" + "\n" + "\n" + 
-            "commit" + "\n" +
-            "end"  + "\n" + 
-            "show interface Bundle-Ether4."+vlan_id+" brief"+"\n" +
-            "show interface Bundle-Ether15."+vlan_id+" brief"+"\n" +  
-            "show l2vpn bridge-domain bd-name BD_MST-CENTRO-VLAN-"+vlan_id + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-
-
-
-
-
-          
-          else if ((nodo_origen === "Cali ASR" && nodo_destino === "Municipal MX") || (nodo_origen === "Municipal MX" && nodo_destino === "Cali ASR") )
-          {
-            comandos =
-            "## CALI ASR 10.248.10.7" + "\n" +
-            "conf t" + "\n" +
-            "interface Bundle-Ether5." + vlan_id + " l2transport" + "\n" +
-            "description Enlace-ASR-Cali-Municipal-" + vlan_name + "-pw-" + vlan_id + "\n" +
-            "encapsulation dot1q " + vlan_id + "\n" +
-            "rewrite ingress tag pop 1 symmetric" + "\n" +
-            "exit" + "\n" +
-            "l2vpn" + "\n" + 
-            "bridge group BG_MST_VALLE" + "\n" + 
-            "bridge-domain BD_MST-VALLE-VLAN-" + vlan_id + "\n" + 
-            "mtu 9600" + "\n" + 
-            "interface Bundle-Ether5." + vlan_id + "\n" + 
-            "exit" + "\n" + 
-            "vfi " + vlan_name + "\n" + 
-            "neighbor 10.248.1.246 pw-id " + vlan_id + "\n" + 
-            "root" + "\n" + 
-            "show" + "\n" + "\n" + 
-            "commit" + "\n" +
-            "end"  + "\n" + 
-            "show interface Bundle-Ether10."+vlan_id+" brief"+"\n" +  
-            "show l2vpn bridge-domain bd-name BD_MST-VALLE-VLAN-"+vlan_id + "\n" +
-            "\n" +"\n"+"\n"+
-            
-            "## MUNICIPAL Juniper 10.248.1.246" + "\n"+
-            "edit" + "\n"+
-            "edit interfaces xe0/1/0 unit " + vlan_id + "\n"+
-            "set description Cali_Asr-Municipal-"+vlan_id + "\n"+
-            "set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
-            "set input-vlan-map pop" + "\n"+
-            "set output-vlan-map push"+ "\n"+
-            "top"+ "\n"+
-            "edit routing-instances VPLS-"+ vlan_id + "\n"+
-            "set instance-type vpls vlan-id all"+ "\n"+ 
-            "set interface xe0/1/0." + vlan_id + "\n"+
-            "edit protocols vpls"+ "\n"+ 
-            "set mtu 9600" + "\n" + 
-            "set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
-            "edit neighbor 10.248.10.7"+ "\n"+
-            "set encapsulation-type ethernet pseudowire-status-tlv"+ "\n"+
-            "top"+ "\n"+
-            "show | compare"+ "\n"+
-            "commit" + "\n"+
-            "exit" + "\n"+
-            "show vpls connections instance VPLS-" + vlan_id + " brief" + "\n"+
-            "\n"+ "\n"+"\n";       
-          }
-			document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
+            comandosOrigen = lista_comandos[nodo_origen];
+			comandosDestino = lista_comandos[nodo_destino];
+			document.getElementById("comandosOrigen").value = comandosOrigen;
+			document.getElementById("comandosDestino").value = comandosDestino;
+           }
+		
         }
     </script>
 </body>
