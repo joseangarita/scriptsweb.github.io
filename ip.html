@@ -137,7 +137,7 @@
                       "show configuration | display set | match " + red_lan_ipv6 + "\n" +
                       "show route table INTERNET.inet.0 " + red_lan_ipv4 + "\n" +
                       "show route table INTERNET.inet6.0 " + red_lan_ipv6 + "\n" +
-                      "show route receive-protocol bgp " + red_lan_ipv4 + "table INTERNET.inet.0" + "\n" +
+                      "show route receive-protocol bgp " + wan_ipv4 + " table INTERNET.inet.0" + "\n" +
                       "ping routing-instance INTERNET " + wan_ipv4 + "\n" +
                       "show arp vpn INTERNET | find  " + wan_ipv4 + "\n" + "\n" + 
                       "edit" + "\n" + 
