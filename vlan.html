@@ -96,7 +96,7 @@
                       "add vlan " + vlan_id + " interf " + pto_lan + " frame tag" + "\n" +
                       "sh vlan " + vlan_id + "\n" +
                       "exit" + "\n" +
-                      "exit" + "\n";
+                      "exit" + "\n"+ "\n"+ "\n";
                       
         } else if (equipo == "at") {
           comandos =  user + "\n" +
@@ -115,7 +115,7 @@
                       "exit " + "\n" +
                       "sh vlan " + vlan_id + "\n" + 
                       "write " + "\n" +
-                      "exit" + "\n";
+                      "exit" + "\n"+ "\n"+ "\n";
           } else if (equipo == "bdcom") {
             comandos =  user + "\n" +
                       pass + "\n" + "\n" +
@@ -134,7 +134,7 @@
                       "exit " + "\n" +
                       "sh vlan " + vlan_id + "\n" + 
                       "write " + "\n" +
-                      "exit" + "\n";
+                      "exit" + "\n"+ "\n"+ "\n";
              
         }
         document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
