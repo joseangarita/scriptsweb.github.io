@@ -65,7 +65,10 @@ nav ul:after {
 
 nav ul li {
 	float: left;
+	margin-right: 5px;
+	
 }
+
 nav ul li:hover {
 	background: #4b545f;
 		border-radius: 5px;
