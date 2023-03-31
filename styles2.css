@@ -55,6 +55,9 @@ body {
         font-weight: bold;
         cursor: pointer;
       }
+	button:hover {
+  	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	}
       .generar { 
         background-color: #3e8e41;
         color: white;
