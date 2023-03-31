@@ -4,13 +4,13 @@ body {
 }
 
 h1 {
-    text-align: left;
-				border: 2px solid black;
-			padding: 10px;
-			border-radius: 10px;
-			text-align: center;
-			background-color: #f7f7f7;
-			box-shadow: 2px 2px 4px #888888;
+	text-align: left;
+	border: 2px solid black;
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	background-color: #f7f7f7;
+	box-shadow: 2px 2px 4px #888888;
 }
 ul {
     list-style-type: none;
