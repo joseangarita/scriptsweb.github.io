@@ -1,6 +1,9 @@
 body {
     font-family: Arial, sans-serif;
     font-size: 14px;
+	background-image: url('titanic.png');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 h1 {
@@ -17,7 +20,7 @@ ul {
     margin: 0;
     padding: 0;
     width: 50%;
-    background-color: #f1f1f1;
+	
 }
 
 li a {
@@ -36,8 +39,8 @@ li a:hover {
 nav li a {
     color: #333;
     text-decoration: none;
-    padding: 15px 30px;
-    border-radius: 5px;
+    padding: 10px 0px;
+    border-radius: 10px;
     transition: background-color 0.2s ease;
 	box-shadow: 2px 2px 4px #888888;
 }
@@ -51,8 +54,6 @@ nav ul li:hover > ul {
 }
 
 nav ul {
-	background: #efefef; 
-	padding: 0 20px;
 	list-style: none;
 	position: relative;
 	display: inline-table;
@@ -72,24 +73,27 @@ nav ul li:hover a {
 }
 
 nav ul li a {
-	display: block; padding: 25px 40px;
-	color: #757575; text-decoration: none;
+	display: block; padding: 15px 20px;
+	color: white; text-decoration: none;
+	background-color: grey;
 }
+
 nav ul ul {
-	background: #5f6975; border-radius: 0px; padding: 0;
-	position: absolute; top: 100%;
+	border-radius: 10px; padding: 10px;
+	position: absolute; top: auto;
 }
 nav ul ul li {
 	float:none; 
-	border-top: 1px solid #6b727c;
+	border-top: 10px;
 	border-bottom: 1px solid #575f6a; position:relative;
 }
 nav ul ul li a {
-	padding: 15px 40px;
+	padding: 10px 20px;
 	color:#fff;
 }	
 nav ul ul li a:hover {
 	background: #4b545f;
+	padding: 10px;
 }
 nav ul ul ul {
 	position:absolute; left:100%; top:-10px;
