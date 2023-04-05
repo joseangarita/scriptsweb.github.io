@@ -17,20 +17,20 @@
         <option value="cisco">Cisco</option>
       </select>
       <br>
-      <label for="wan_ipv4">Ip WAN IPv4:</label>
-      <input type="text" id="wan_ipv4" name="wan_ipv4">
-      <br>
       <label for="red_lan_ipv4">Red LAN IPv4:</label>
-      <input type="text" id="red_lan_ipv4" name="red_lan_ipv4">
+      <input type="text" id="red_lan_ipv4" name="red_lan_ipv4" required>
       <br>
-      <label for="wan_ipv6">Ip WAN IPv6:</label>
-      <input type="text" id="wan_ipv6" name="wan_ipv6">
+      <label for="wan_ipv4">Ip WAN IPv4:</label>
+      <input type="text" id="wan_ipv4" name="wan_ipv4" required>
       <br>
       <label for="red_lan_ipv6">Red LAN IPv6:</label>
-      <input type="text" id="red_lan_ipv6" name="red_lan_ipv6">
+      <input type="text" id="red_lan_ipv6" name="red_lan_ipv6" required>
+      <br>
+      <label for="wan_ipv6">Ip WAN IPv6:</label>
+      <input type="text" id="wan_ipv6" name="wan_ipv6" required>
       <br>
       <label for="descrip_ruta">Descripción de la Ruta:</label>
-      <input type="text" id="descrip_ruta" name="descrip_ruta">
+      <input type="text" id="descrip_ruta" name="descrip_ruta" required>
       <br>
       <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
       <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br><br>
@@ -41,19 +41,19 @@
     <script>
       function resetForm() {
         document.getElementById("equipo").selectedIndex = 0;
-        document.getElementById("wan_ipv4").value = "";
         document.getElementById("red_lan_ipv4").value = "";
-        document.getElementById("wan_ipv6").value = "";
+        document.getElementById("wan_ipv4").value = "";
         document.getElementById("red_lan_ipv6").value = "";
+        document.getElementById("wan_ipv6").value = "";
         document.getElementById("descrip_ruta").value = "";
         document.getElementById("comandos").innerHTML = "";
       }
       function generarComandos() {
         var equipo = document.getElementById("equipo").value;
-        var wan_ipv4 = document.getElementById("wan_ipv4").value;
         var red_lan_ipv4 = document.getElementById("red_lan_ipv4").value;
-        var wan_ipv6 = document.getElementById("wan_ipv6").value;
+        var wan_ipv4 = document.getElementById("wan_ipv4").value;
         var red_lan_ipv6 = document.getElementById("red_lan_ipv6").value;
+        var wan_ipv6 = document.getElementById("wan_ipv6").value;
         var descrip_ruta = document.getElementById("descrip_ruta").value;
         var comandos = "";
         if (equipo == "juniper") {
