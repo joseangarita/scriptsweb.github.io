@@ -2,20 +2,27 @@ body {
         font-family: Arial, sans-serif;
         font-size: 11px;
       }
-      h1 {
+.logo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 150px; /* ajustar el ancho del logo */
+  height: 1500px; /* ajustar la altura del logo */
+}
+h1 {
         text-align: left;
       }
-      form {
+form {
         width: auto;
         margin: auto;
         text-align: left;
       }
-      label {
+label {
         display: block;
         margin-bottom: 1px;
         font-weight: bold;
       }
-      select, input[type="text"] {
+select, input[type="text"] {
         padding: 2px;
         border-radius: 5px;
         border: 1px solid #ccc;
@@ -23,7 +30,7 @@ body {
         width: auto;
         box-sizing: border-box;
       }
-      #comandos {
+#comandos {
         border: 1px solid #ccc;
         padding: 10px;
         border-radius: 5px;
@@ -35,7 +42,7 @@ body {
         font-family: monospace;
         font-size: 12px;
       }
-      textarea {
+textarea {
         width: auto;
         height: auto;
         padding: 10px;
@@ -46,7 +53,7 @@ body {
         margin-bottom: 20px;
         float: center;
       }
-      button {
+button {
         padding: 10px;
         border-radius: 5px;
         border: none;
@@ -55,10 +62,10 @@ body {
         font-weight: bold;
         cursor: pointer;
       }
-	button:hover {
+button:hover {
   	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 	}
-      .generar { 
+.generar { 
         background-color: #3e8e41;
         color: white;
         padding: 10px;
@@ -66,7 +73,7 @@ body {
         border-radius: 5px;
         cursor: pointer;
       }
-      .reset {
+.reset {
         background-color: red;
         color: white;
         padding: 10px;
@@ -74,29 +81,29 @@ body {
         border-radius: 5px;
         cursor: pointer;
       }
-		.container {
+.container {
 			display: flex;
 			flex-wrap: wrap;
 			gap: 20px;
 		}
-		.textarea-container {
+.textarea-container {
 			flex-basis: auto;
 			box-sizing: border-box;
 		}
-		.textarea-container:first-child {
+.textarea-container:first-child {
 			order: 1;
 		}
-		.textarea-container:last-child {
+.textarea-container:last-child {
 			order: 2;
 		}
-		@media (max-width: auto) {
-			.textarea-container {
+@media (max-width: auto) {
+	.textarea-container {
 				flex-basis: auto;
 			}
-			.textarea-container:first-child {
+	.textarea-container:first-child {
 				order: 2;
 			}
-			.textarea-container:last-child {
+	.textarea-container:last-child {
 				order: 1;
 			}
 		}
