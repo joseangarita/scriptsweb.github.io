@@ -1,115 +1,123 @@
 body {
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-      }
-.logo {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 150px; /* ajustar el ancho del logo */
-  height: 150px; /* ajustar la altura del logo */
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    background-color: #F3F3F4;
+    color: white;
 }
-h1 {
-        text-align: left;
-      }
-form {
-        width: auto;
-        margin: auto;
-        text-align: left;
-      }
-label {
-        display: block;
-        margin-bottom: 1px;
-        font-weight: bold;
-      }
-select, input[type="text"] {
-        padding: 2px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-        width: auto;
-        box-sizing: border-box;
-      }
-#comandos {
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 5px;
-        width: auto;
-        margin: 20px auto;
-        box-sizing: border-box;
-        float: left;
-        white-space: pre;
-        font-family: monospace;
-        font-size: 12px;
-      }
-textarea {
-        width: auto;
-        height: auto;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-family: monospace;
-        font-size: 14px;
-        margin-bottom: 20px;
-        float: center;
-      }
-button {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        background-color: #4CAF50;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-      }
-button:hover {
-  	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	}
-.generar { 
-        background-color: #3e8e41;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-.reset {
-        background-color: red;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-.container {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 20px;
-		}
-.textarea-container {
-			flex-basis: auto;
-			box-sizing: border-box;
-		}
-.textarea-container:first-child {
-			order: 1;
-		}
-.textarea-container:last-child {
-			order: 2;
-		}
-@media (max-width: auto) {
-	.textarea-container {
-				flex-basis: auto;
-			}
-	.textarea-container:first-child {
-				order: 2;
-			}
-	.textarea-container:last-child {
-				order: 1;
-			}
-		}
 /* estilo para lo que esta dentro del from*/
 form {
-  background-color: #f2f2f2;
-  padding: 10px;
-  border-radius: 5px;
+    background-color: #2F4050;
+    padding: 10px;
+    border-radius: 5px;
+}
+.logo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 150px; /* ajustar el ancho del logo */
+    height: 150px; /* ajustar la altura del logo */
+}
+
+h1 {
+    text-align: left;
+    color: black;
+}
+form {
+    width: auto;
+    margin: auto;
+    text-align: left;
+}
+label {
+    display: block;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+select, input[type="text"] {
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    width: auto;
+    box-sizing: border-box;
+}
+
+#comandos {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+    margin: 20px auto;
+    box-sizing: border-box;
+    float: left;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 12px;
+    color: black;
+    background-color: white;
+}
+textarea {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	}
+.generar { 
+    background-color: #3e8e41;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.reset {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.textarea-container {
+    flex-basis: auto;
+    box-sizing: border-box;
+    color: black;
+}
+.textarea-container:first-child {
+	order: 1;
+		}
+.textarea-container:last-child {
+    order: 2;
+		}
+@media (max-width: auto) {
+    .textarea-container {
+        flex-basis: auto;
+
+    }
+    .textarea-container:first-child {
+        order: 2;
+    }
+    .textarea-container:last-child {
+        order: 1;
+    }
 }
