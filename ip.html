@@ -103,7 +103,7 @@
                       "commit" + "\n" + "\n" +
                       "exit" + "\n" + "\n" +
                       "sh route vrf INTERNET | include " + red_lan_ipv4 + "\n" + 
-                      "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6;
+                      "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6 + "\n"+"\n"+"\n";
         }
         document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
       }
