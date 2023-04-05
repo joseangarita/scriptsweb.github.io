@@ -7,7 +7,7 @@ body {
   bottom: 0;
   right: 0;
   width: 150px; /* ajustar el ancho del logo */
-  height: 1500px; /* ajustar la altura del logo */
+  height: 150px; /* ajustar la altura del logo */
 }
 h1 {
         text-align: left;
