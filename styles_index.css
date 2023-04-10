@@ -3,6 +3,28 @@ body {
     font-size: 14px;
 	
 }
+
+button:hover {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	}
+input[type="text"] {
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+	flex-grow: 1;
+}
+
+button[type="submit"] {
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+	background-color: white;
+	color: black;
+	margin-left: 10px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
 .logo {
   position: fixed;
   bottom: 0;
@@ -10,6 +32,7 @@ body {
   width: 150px; /* ajustar el ancho del logo */
   height: 150px; /* ajustar la altura del logo */
 }
+
 h1 {
 	text-align: left;
 	border: 2px solid black;
