@@ -1,137 +1,163 @@
+/* Estilos generales para el cuerpo de la página */
 body {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	background-color: #2F4050;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #2F4050;
 }
 
+/* Estilos para la imagen del logo */
+.logo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 150px; /* ajustar el ancho del logo */
+    height: 150px; /* ajustar la altura del logo */
+}
+
+/* Estilos para el botón cuando se hace hover */
 button:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	}
+}
+
+/* Estilos para el campo de texto de entrada */
 input[type="text"] {
-	padding: 8px;
-	border-radius: 5px;
-	border: none;
-	flex-grow: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    flex-grow: 1;
 }
 
+/* Estilos para el botón de envío de formulario */
 button[type="submit"] {
-	padding: 8px;
-	border-radius: 5px;
-	border: none;
-	background-color: white;
-	color: black;
-	margin-left: 10px;
-	cursor: pointer;
-	font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+    color: black;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.logo {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 150px; /* ajustar el ancho del logo */
-  height: 150px; /* ajustar la altura del logo */
-}
-
+/* Estilos para los títulos de la página */
 h1 {
-	text-align: left;
-	border: 2px solid black;
-	padding: 4px;
-	border-radius: 10px;
-	text-align: center;
-	background-color: #f7f7f7;
-	box-shadow: 2px 2px 4px #888888;
+    text-align: left;
+    border: 2px solid black;
+    padding: 4px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #f7f7f7;
+    box-shadow: 2px 2px 4px #888888;
 }
+
+/* Estilos para las listas */
 ul {
     list-style-type: none;
     margin: 0;
     padding: 10px;
     width: auto;
-	
 }
 
+/* Estilos para los enlaces de las listas */
 li a {
     display: block;
     color: #000;
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
-	
 }
 
+/* Estilos para los enlaces de las listas cuando se hace hover */
 li a:hover {
     background-color: #333;
     color: white;
-
 }
+
+/* Estilos para los enlaces de la barra de navegación */
 nav li a {
     color: #333;
     text-decoration: none;
     padding: 10px 0px;
     border-radius: 10px;
     transition: background-color 0.2s ease;
-	box-shadow: 2px 2px 4px #888888;
+    box-shadow: 2px 2px 4px #888888;
 }
 
-nav ul ul {
-	display: none;
-
-}
-
+/* Estilos para las listas desplegables */
 nav ul li:hover > ul {
-	display:inherit;
+    display: inherit;
 }
 
+/* Estilos para la barra de navegación */
 nav ul {
-	list-style: none;
-	position: relative;
-	display: inline-table;
-	
+    list-style: none;
+    position: relative;
+    display: inline-table;
 }
+
 nav ul:after {
-	content: ""; clear: both; display: block;
+    content: "";
+    clear: both;
+    display: block;
 }
 
 nav ul li {
-	float: left;
-	margin-right: 5px;
-	
+    float: left;
+    margin-right: 5px;
 }
 
+/* Estilos para los enlaces de la barra de navegación cuando se hace hover */
 nav ul li:hover {
-	background: #4b545f;
-		border-radius: 5px;
+    background: #4b545f;
+    border-radius: 5px;
 }
+
 nav ul li:hover a {
-	color: #fff;
-		border-radius: 5px;
+    color: #fff;
+    border-radius: 5px;
 }
 
 nav ul li a {
-	display: flex; padding: 15px 15px;
-	color: white; text-decoration: none; 
-	background-color: rgb(128, 128, 128);
-	
+    display: flex;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    background-color: rgb(128, 128, 128);
+}
+
+/* Estilos para las sub */
+nav ul li:hover > ul {
+    display: block;
 }
 
 nav ul ul {
-	border-radius: 10px; padding: 10px;
-	position: absolute; top: auto;
+    display: none;
+    border-radius: 10px; 
+    padding: 10px;
+    position: absolute; 
+    top: auto;
 }
+
 nav ul ul li {
-	float:none; 
-	border-top: 15px;
-	border-bottom: 0 solid #575f6a; position:relative;
-	padding: 5px;
+    float:none; 
+    border-top: 15px;
+    border-bottom: 0 solid #575f6a; 
+    position:relative;
+    padding: 5px;
 }
+
 nav ul ul li a {
-	padding: 8px 15px;
-	color:#fff;
-}	
+    padding: 8px 15px;
+    color:#fff;
+}   
+
 nav ul ul li a:hover {
-	background: #476c99;
-	padding: 10px;
+    background: #476c99;
+    padding: 10px;
 }
+
 nav ul ul ul {
-	position:absolute; left:100%; top:-10px;
+    position:absolute; 
+    left:100%; 
+    top:-10px;
 }
