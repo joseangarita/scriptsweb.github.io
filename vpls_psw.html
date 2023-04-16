@@ -63,7 +63,8 @@
 	<br>
 	
     	<button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
-	<button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
+	<button type="button" class="copiar" onclick="copiarComandosOrigen()">Copiar comandos ORIGEN</button>
+	<button type="button" class="copiar" onclick="copiarComandosDestino()">Copiar comandos DESTINO</button>
 	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br><br>
 	<!-- <div id="comandos"></div> -->
     <!--<textarea id="comandos" rows="10" cols="50"></textarea> -->
@@ -90,9 +91,28 @@
         function generarComandos() {
             var nodo_origen = document.getElementById("nodo_origen").value;
             var nodo_destino = document.getElementById("nodo_destino").value;
-			var vlan_id = document.getElementById("vlan_id").value;
+	    var vlan_id = document.getElementById("vlan_id").value;
             var vlan_name = document.getElementById("vlan_name").value;
-			var lista_comandos = 
+		var lista_ips =
+			{
+				'Barranquilla MX': ["10.248.10.5"],
+				'Bogota ASR':["10.248.10.1"],
+				'Bogota MX':["10.248.10.15"],
+				'Bucaramanga MX':["10.248.10.13"],
+				'Cali ASR':["10.248.10.7"],
+				'Cali Norte MX':["10.248.1.242"],
+				'Cucuta MX':["10.248.10.16"],
+				'Ibague MX':["10.248.10.14"],
+				'Medellin MX':["10.248.10.11"],
+				'Melendez MX':["10.248.1.244"],
+				'Monteria MX':["10.248.10.12"],
+				'Municipal MX':["10.248.1.246"],
+				'Pance MX':["10.248.1.245"],
+				'Pasto MX':["10.248.10.17"],
+				'Pereira MX':["10.248.10.3"],
+				'Roosevelt MX':["10.248.1.243"]
+			}	
+		var lista_comandos = 
 			{
 				'Barranquilla MX':[
 				"## BARRANQUILLA Juniper 10.248.10.5" + "\n" +
@@ -497,15 +517,25 @@
            }
 		
         }
-	    function copiarComandos() {
-		var comandos = document.getElementById("comandos").textContent;
-		var textarea = document.createElement("textarea");
-		textarea.value = comandos;
-		document.body.appendChild(textarea);
-		textarea.select();
-		document.execCommand("copy");
-		document.body.removeChild(textarea);
-		alert("Comandos copiados al portapapeles.");
+		function copiarComandosOrigen() {
+			var comandos = document.getElementById("comandosOrigen").textContent;
+			var textarea = document.createElement("textarea");
+			textarea.value = comandosOrigen;
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(textarea);
+			alert("COMANDOS DE NODO ORIGEN COPIADOS");
+      }
+	  function copiarComandosDestino() {
+			var comandos = document.getElementById("comandosDestino").textContent;
+			var textarea = document.createElement("textarea");
+			textarea.value = comandosDestino;
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(textarea);
+			alert("COMANDOS DE NODO DESTINO COPIADOS");
       }
     </script>
 </body>
