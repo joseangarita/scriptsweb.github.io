@@ -8,7 +8,6 @@
 <header>
 	<h1>Comandos VPLS-Pseudowire</h1>
 </header>
-<img src="pem_logo.png" alt="Logo area" class="logo">
 <body>
 	<form>
     <label for="nodo_origen">Nodo Origen:</label>
@@ -63,10 +62,9 @@
 	</form>
 	<br>
 	
-    <button onclick="generarComandos()">Generar comandos
-	</button>
-	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos
-	</button><br><br>
+    	<button onclick="generarComandos()">Generar comandos</button>
+	<button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
+	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br><br>
 	<!-- <div id="comandos"></div> -->
     <!--<textarea id="comandos" rows="10" cols="50"></textarea> -->
 
@@ -499,6 +497,16 @@
            }
 		
         }
+	    function copiarComandos() {
+		var comandos = document.getElementById("comandos").textContent;
+		var textarea = document.createElement("textarea");
+		textarea.value = comandos;
+		document.body.appendChild(textarea);
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("Comandos copiados al portapapeles.");
+      }
     </script>
 </body>
 </html>
