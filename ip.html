@@ -8,7 +8,6 @@
 <header>
     <h1>COMANDOS APROV IP CORE</h1>
 </header>
-<img src="pem_logo.png" alt="Logo area" class="logo">
   </head>
   <body>
     <form>
@@ -34,6 +33,7 @@
       <input type="text" id="descrip_ruta" name="descrip_ruta" required>
       <br>
       <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+      <button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
       <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button>
       <br>
     </form>
@@ -107,6 +107,16 @@
                       "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6 + "\n"+"\n"+"\n";
         }
         document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
+      }
+      function copiarComandos() {
+        var comandos = document.getElementById("comandos").textContent;
+        var textarea = document.createElement("textarea");
+        textarea.value = comandos;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Comandos copiados al portapapeles.");
       }
     </script>
   </body>
