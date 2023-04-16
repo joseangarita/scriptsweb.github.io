@@ -1,47 +1,46 @@
+/* Estilos globales del cuerpo del documento */
 body {
     font-family: Arial, sans-serif;
     font-size: 13px;
     background-color: #F3F3F4;
     color: white;
-}
-/* estilo para lo que esta dentro del from*/
-form {
+    }
+    
+    /* Estilos para el formulario */
+    form {
     background-color: #2F4050;
     padding: 10px;
     border-radius: 5px;
-}
-.logo {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 150px; /* ajustar el ancho del logo */
-    height: 150px; /* ajustar la altura del logo */
-}
-
-h1 {
-    text-align: left;
-    color: black;
-}
-form {
     width: auto;
     margin: auto;
     text-align: left;
-}
-label {
+    }
+    
+    /* Estilos para el encabezado */
+    h1 {
+    text-align: left;
+    color: black;
+    }
+    
+    /* Estilos para las etiquetas de los campos de entrada */
+    label {
     display: block;
     margin-bottom: 1px;
     font-weight: bold;
-}
-select, input[type="text"] {
+    }
+    
+    /* Estilos para los campos de selección y de texto */
+    select, input[type="text"] {
     padding: 2px;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 10px;
     width: auto;
     box-sizing: border-box;
-}
-
-#comandos {
+    }
+    
+    /* Estilos para el cuadro de comandos */
+    #comandos {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -54,8 +53,10 @@ select, input[type="text"] {
     font-size: 12px;
     color: black;
     background-color: white;
-}
-textarea {
+    }
+    
+    /* Estilos para el área de texto */
+    textarea {
     width: auto;
     height: auto;
     padding: 10px;
@@ -64,60 +65,75 @@ textarea {
     font-family: monospace;
     font-size: 14px;
     margin-bottom: 20px;
-}
-button {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-button:hover {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	}
-.generar { 
+    }
+    
+    /* Estilos para el botón de generar */
+    button.generar {
     background-color: #3e8e41;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-.reset {
+    }
+    
+    /* Estilos para el botón de resetear */
+    button.reset {
     background-color: red;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-.container {
+    }
+
+    /* Estilos para el botón de copiar */
+    button.copiar {
+    background-color: #c4904d;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    
+    button:hover {
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Estilos para el contenedor de los elementos */
+    .container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-}
-.textarea-container {
+    }
+    
+    /* Estilos para el contenedor del área de texto */
+    .textarea-container {
     flex-basis: auto;
     box-sizing: border-box;
     color: black;
-}
-.textarea-container:first-child {
-	order: 1;
-		}
-.textarea-container:last-child {
+    }
+    
+    /* Estilos para el primer contenedor del área de texto */
+    .textarea-container:first-child {
+    order: 1;
+    }
+    
+    /* Estilos para el último contenedor del área de texto */
+    .textarea-container:last-child {
     order: 2;
-		}
-@media (max-width: auto) {
+    }
+    
+    /* Estilos para los dispositivos con una anchura máxima */
+    @media (max-width: auto) {
     .textarea-container {
-        flex-basis: auto;
-
+    flex-basis: auto;
     }
     .textarea-container:first-child {
-        order: 2;
+    order: 2;
     }
     .textarea-container:last-child {
-        order: 1;
+    order: 1;
     }
-}
+    }
