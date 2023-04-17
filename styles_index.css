@@ -17,9 +17,22 @@ body {
     height: 150px; /* ajustar la altura del logo */
 }
 
-/* Estilos para los botones cuando se hace hover (señalar) */
+/* estilo para el boton de reiniciar pantalla */
+.reset-button {
+    font-size: 14px;
+    /* background-color: #79A341;  COLOR VERDE1*/
+    background-color: #3e8e41; /* COLOR VERDE2*/
+    color: white;
+    padding: 10px;
+    /* border: none; darle borde al boton si se elimina queda en borde negro */
+    /* border-radius: 5px; darle radio o redondeo a las esquinas */
+    cursor: pointer;
+}
+
+/* Estilos para los botones cuando se hace hover (señalar) botor reset pantalla */
 button:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	background-color: red;
 }
 
 /* Estilos para el campo de texto de entrada */
@@ -28,6 +41,7 @@ input[type="text"] {
 }
 input:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	transition: background-color 0.3s ease;
 }
 
 /* Estilos para el botón de envío de formulario */
@@ -40,6 +54,11 @@ button[type="submit"] {
     margin-left: 10px;
     cursor: pointer;
     font-weight: bold;
+}
+button[type="submit"]:hover {
+  background-color: red;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
 #search-input {
@@ -75,7 +94,10 @@ nav ul {
     margin: 0;
     padding: 6px;
     list-style: none;
-}
+	display: flex; /* para que los elementos estén en línea */
+	justify-content: space-between; /* para distribuir el espacio disponible entre los elementos */
+	flex-wrap: nowrap; /* para evitar que los elementos se ajusten al ancho de la pantalla */
+}}
 nav ul li {
     position: relative;
     flex: 1; /* cada elemento del menú ocupa un espacio igual */
@@ -98,7 +120,7 @@ nav ul.main-menu {
     color: white;
     font-size: 14px;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.5s ease;
   }
 
   /* Estilos para los enlaces de las listas cuando se hace hover */
@@ -119,20 +141,18 @@ nav ul li a {
   /* Estilos para los submenus en listas desplegables */
   nav ul.sub-menu { /* menu desplegable y fondo*/
     display: none;
-    position: absolute;
-     
+    position: absolute;     
     background-color: #ffffff;
     border: 1px solid #ccc;
     max-width: auto;
     max-height: auto;
-    
     box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
 	display: none;
 	position: absolute;
 	top: 100%;
 	left: 50%; /* Centra el submenú horizontalmente con respecto al elemento del menú */
 	transform: translateX(-50%); /* Centra el submenú horizontalmente con respecto a sí mismo */
-
+	z-index: 1; /* para que el submenú se muestre por encima de los demás elementos */
   }
 
     /* Estilos para los enlaces dentro de los submenus */
@@ -166,31 +186,10 @@ nav ul li a {
   /* Estilos para los elementos de los submenús */
   ul.sub-menu li {
     display: block;
-    padding: 7px;
+    padding: 3px;
 	border: 2px,
   }
   
-  /* Estilos para los enlaces de los submenús */
-  ul.sub-menu li a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-  }
-  
-  /* Estilos para los submenús que tienen submenús anidados */
-  ul.sub-menu ul.sub-menu {
-    top: 0;
-    left: 100%;
-    min-width: initial;
-  }
-  
-  /* Mostrar los submenús al pasar el mouse por encima */
-  ul.menu li:hover > ul.sub-menu {
-    display: block;
-
-  } 
-
-
 /* Estilos para las sub */
 nav ul li:hover > ul {
     display: block;
@@ -219,17 +218,6 @@ html, body {
   min-height: 100%;
   background-color: white;
 }
-/* estilo para el boton de reiniciar pantalla */
-.reset-button {
-    font-size: 14px;
-    /* background-color: #79A341;  COLOR VERDE1*/
-    background-color: #3e8e41; /* COLOR VERDE2*/
-    color: white;
-    padding: 10px;
-    /* border: none; darle borde al boton si se elimina queda en borde negro */
-    /* border-radius: 5px; darle radio o redondeo a las esquinas */
-    cursor: pointer;
-}
 
 /* Estilos para el segundo submenú */
 nav ul.sub-menu2 {
@@ -244,31 +232,4 @@ nav ul.sub-menu2 {
   position: absolute;
   top: 0;
   left: 100%; /* Cambia la posición a la derecha del elemento del menú */
-}
-
-/* Estilos para los enlaces dentro del segundo submenú
-nav ul.sub-menu2 li {
-  display: block;
-  position: relative;
-}
-
-nav ul.sub-menu2 li a {
-  display: flex;
-  padding: 5px;
-  color: white;
-  white-space: nowrap;
-}
-
-nav ul.sub-menu2 li:hover > a {
-  background-color: #476c99;
-}
-
-nav ul.sub-menu2 li:hover > ul {
-  display: block;
-}
-
-nav ul.sub-menu2 ul {
-  position: absolute;
-  top: 0;
-  left: 100%;
 }
