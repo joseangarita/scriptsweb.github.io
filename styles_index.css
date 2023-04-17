@@ -158,25 +158,27 @@ nav ul li a {
     /* Estilos para los enlaces dentro de los submenus */
   nav ul.sub-menu li {
     display: block;
-	  position: relative;
-
   }
 
+  /* Se utiliza flexbox para alinear verticalmente el texto y el icono */
   nav ul.sub-menu li a {
     display: flex;
     padding: 5px;
-    color: white;
-    white-space: nowrap;
+    color: white; 
+    white-space: nowrap;  /* Se evita que el texto se divida en varias líneas */
   }
   
+  /* Se cambia el color de fondo del enlace cuando se le hace hover */
   nav ul.sub-menu li:hover > a {
     background-color: #476c99;
   }
   
+  /* Se muestra el submenu cuando se le hace hover al enlace padre */
   nav ul.sub-menu li:hover > ul {
     display: block;
   }
-  
+
+  /* Se posiciona el submenu a la derecha del enlace padre */
   nav ul.sub-menu ul {
     position: absolute;
     top: 0;
