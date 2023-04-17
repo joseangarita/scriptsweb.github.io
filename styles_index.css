@@ -17,7 +17,7 @@ body {
     height: 150px; /* ajustar la altura del logo */
 }
 
-/* Estilos para el botón cuando se hace hover */
+/* Estilos para los botones cuando se hace hover (señalar) */
 button:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -56,8 +56,6 @@ h1 {
     background-color: #f7f7f7;
     box-shadow: 2px 2px 4px #888888;
 }
-
-/* Estilos para las listas */
 
 /* Estilos para los enlaces de las listas */
 li a {
@@ -111,6 +109,7 @@ nav ul.main-menu {
   nav ul li:hover {
     background: #4b545f;
     border-radius: 5px;
+	
 }
 nav ul li a {
     background-color: rgb(128, 128, 128);
@@ -121,22 +120,32 @@ nav ul li a {
   nav ul.sub-menu { /* menu desplegable y fondo*/
     display: none;
     position: absolute;
-    top: auto;   
-    background-color: #ffffffb6;
+     
+    background-color: #ffffff;
     border: 1px solid #ccc;
     max-width: auto;
     max-height: auto;
-    left: 0;
+    
     box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 50%; /* Centra el submenú horizontalmente con respecto al elemento del menú */
+	transform: translateX(-50%); /* Centra el submenú horizontalmente con respecto a sí mismo */
+
   }
+
     /* Estilos para los enlaces dentro de los submenus */
   nav ul.sub-menu li {
-    display: block; 
+    display: block;
+	  position: relative;
+
   }
+
   nav ul.sub-menu li a {
     display: flex;
-    padding: auto;
-    color: whitesmoke;
+    padding: 5px;
+    color: white;
     white-space: nowrap;
   }
   
@@ -157,7 +166,8 @@ nav ul li a {
   /* Estilos para los elementos de los submenús */
   ul.sub-menu li {
     display: block;
-    padding: 10px;
+    padding: 7px;
+	border: 2px,
   }
   
   /* Estilos para los enlaces de los submenús */
@@ -177,11 +187,8 @@ nav ul li a {
   /* Mostrar los submenús al pasar el mouse por encima */
   ul.menu li:hover > ul.sub-menu {
     display: block;
+
   } 
-
-
-  
-/* Estilos para los enlaces de la barra de navegación cuando se hace hover */
 
 
 /* Estilos para las sub */
@@ -190,32 +197,15 @@ nav ul li:hover > ul {
 }
 nav ul ul {
     display: none;
-    border-radius: 10px; 
-    padding: 10px;
+    border-radius: 5px; 
     position: absolute; 
     top: auto;
 }
-
-nav ul ul li {
-    float:none; 
-    border-top: 15px;
-    border-bottom: 0 solid #575f6a; 
-    position:relative;
+nav ul ul li a:hover { /* efecto de los elementos submenu al pasar por encima */
+    background: #476c99;
     padding: 5px;
 }
-nav ul ul li a {
-    padding: 8px 15px;
-    color:#fff;
-}   
-nav ul ul li a:hover {
-    background: #476c99;
-    padding: 10px;
-}
-nav ul ul ul {
-    position:absolute; 
-    left:100%; 
-    top:-10px;
-}
+
 
 /* ###################################### */
 /* Estilo para la caja donde se muestra las paginas locales */
@@ -239,4 +229,46 @@ html, body {
     /* border: none; darle borde al boton si se elimina queda en borde negro */
     /* border-radius: 5px; darle radio o redondeo a las esquinas */
     cursor: pointer;
+}
+
+/* Estilos para el segundo submenú */
+nav ul.sub-menu2 {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  max-width: auto;
+  max-height: auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Cambia la posición a la derecha del elemento del menú */
+}
+
+/* Estilos para los enlaces dentro del segundo submenú
+nav ul.sub-menu2 li {
+  display: block;
+  position: relative;
+}
+
+nav ul.sub-menu2 li a {
+  display: flex;
+  padding: 5px;
+  color: white;
+  white-space: nowrap;
+}
+
+nav ul.sub-menu2 li:hover > a {
+  background-color: #476c99;
+}
+
+nav ul.sub-menu2 li:hover > ul {
+  display: block;
+}
+
+nav ul.sub-menu2 ul {
+  position: absolute;
+  top: 0;
+  left: 100%;
 }
