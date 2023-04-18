@@ -25,14 +25,17 @@ body {
     color: white;
     padding: 10px;
     /* border: none; darle borde al boton si se elimina queda en borde negro */
-    /* border-radius: 5px; darle radio o redondeo a las esquinas */
+    border-radius: 5px; /*darle radio o redondeo a las esquinas */
     cursor: pointer;
 }
 
 /* Estilos para los botones cuando se hace hover (señalar) botor reset pantalla */
 button:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	background-color: red;
+    background-color: #c4904d;
+    /* background-color: rgb(189, 124, 40); */
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
 }
 
 /* Estilos para el campo de texto de entrada */
@@ -42,6 +45,7 @@ input[type="text"] {
 input:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 	transition: background-color 0.3s ease;
+  
 }
 
 /* Estilos para el botón de envío de formulario */
@@ -56,9 +60,10 @@ button[type="submit"] {
     font-weight: bold;
 }
 button[type="submit"]:hover {
-  background-color: red;
   color: white;
-  transition: background-color 0.3s ease;
+  /* background-color: rgb(189, 124, 40); */
+  background-color: #c4904d;
+  transition: background-color 0.2s ease;
 }
 
 #search-input {
@@ -147,12 +152,12 @@ nav ul li a {
     max-width: auto;
     max-height: auto;
     box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
-	display: none;
-	position: absolute;
-	top: 100%;
-	left: 50%; /* Centra el submenú horizontalmente con respecto al elemento del menú */
-	transform: translateX(-50%); /* Centra el submenú horizontalmente con respecto a sí mismo */
-	z-index: 1; /* para que el submenú se muestre por encima de los demás elementos */
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%; /* Centra el submenú horizontalmente con respecto al elemento del menú */
+    transform: translateX(-50%); /* Centra el submenú horizontalmente con respecto a sí mismo */
+    z-index: 1; /* para que el submenú se muestre por encima de los demás elementos */
   }
 
     /* Estilos para los enlaces dentro de los submenus */
@@ -162,7 +167,7 @@ nav ul li a {
 
   /* Se utiliza flexbox para alinear verticalmente el texto y el icono */
   nav ul.sub-menu li a {
-    display: flex;
+    display: flow-root;
     padding: 5px;
     color: white; 
     white-space: nowrap;  /* Se evita que el texto se divida en varias líneas */
