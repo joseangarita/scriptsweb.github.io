@@ -97,7 +97,7 @@ nav ul {
 	display: flex; /* para que los elementos estén en línea */
 	justify-content: space-between; /* para distribuir el espacio disponible entre los elementos */
 	flex-wrap: nowrap; /* para evitar que los elementos se ajusten al ancho de la pantalla */
-}}
+}
 nav ul li {
     position: relative;
     flex: 1; /* cada elemento del menú ocupa un espacio igual */
