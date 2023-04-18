@@ -6,6 +6,19 @@ body {
 	/* background-color: #79A341; <verde> */
 	/* background-color: #009DCA; <azul claro> */
 	/* background-color: #F3F3F4; */
+  /* background-color: #171D23; /* azul oscuro2 */
+}
+
+/* Estilo para la caja donde se muestra las paginas locales */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#content-frame {
+  width: 100%;
+  min-height: 100%;
+  background-color: #F5F5F5; /* gris claro */ 
 }
 
 /* Estilos para la imagen del logo */
@@ -32,18 +45,20 @@ body {
 /* Estilos para los botones cuando se hace hover (señalar) botor reset pantalla */
 button:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    background-color: #c4904d;
+    background-color: #EE8023;
     /* background-color: rgb(189, 124, 40); */
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease;
     border-radius: 5px;
 }
 
 /* Estilos para el campo de texto de entrada */
 input[type="text"] {
     padding: 8px;     border-radius: 5px;     border: none;    flex-grow: 1; margin: 5px;
+	cursor: pointer;
 }
 input:hover {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	/* background-color: grey; color /* fondo de campo busqueda*/
 	transition: background-color 0.3s ease;
   
 }
@@ -62,7 +77,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
   color: white;
   /* background-color: rgb(189, 124, 40); */
-  background-color: #c4904d;
+  background-color: #EE8023;
   transition: background-color 0.2s ease;
 }
 
@@ -125,16 +140,17 @@ nav ul.main-menu {
     color: white;
     font-size: 14px;
     text-decoration: none;
-    transition: background-color 0.5s ease;
+	border-radius: 0;
+    transition: background-color 0.3s ease;
   }
 
   /* Estilos para los enlaces de las listas cuando se hace hover */
   nav ul.main-menu > li:hover > a {
-    background-color: #476c99;
+    background-color: #EE8023;
     color: white;  
   }  
   nav ul li:hover {
-    background: #4b545f;
+    background: #4b545f; /* sombreado elementos submenu */ 
     border-radius: 5px;
 	
 }
@@ -159,6 +175,21 @@ nav ul li a {
     transform: translateX(-50%); /* Centra el submenú horizontalmente con respecto a sí mismo */
     z-index: 1; /* para que el submenú se muestre por encima de los demás elementos */
   }
+  
+  /* Estilos para el segundo submenú */
+nav ul.sub-menu2 {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  max-width: auto;
+  max-height: auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Cambia la posición a la derecha del elemento del menú */
+}
 
     /* Estilos para los enlaces dentro de los submenus */
   nav ul.sub-menu li {
@@ -173,7 +204,7 @@ nav ul li a {
     white-space: nowrap;  /* Se evita que el texto se divida en varias líneas */
   }
   
-  /* Se cambia el color de fondo del enlace cuando se le hace hover */
+  /* Se cambia el color de fondo del elemento en submenu cuando se le hace hover */
   nav ul.sub-menu li:hover > a {
     background-color: #476c99;
   }
@@ -187,17 +218,18 @@ nav ul li a {
   nav ul.sub-menu ul {
     position: absolute;
     top: 0;
-    left: 100%;
+    left: relative;
+	right: relative;
 }
   
-  /* Estilos para los elementos de los submenús */
+  /* Estilos para que los elementos en los submenús queden separados unos de otros */
   ul.sub-menu li {
     display: block;
     padding: 3px;
 	border: 2px,
   }
   
-/* Estilos para las sub */
+/* Estilos para se despligue los submenu al pasar el puntero en el menu ppal */
 nav ul li:hover > ul {
     display: block;
 }
@@ -210,33 +242,4 @@ nav ul ul {
 nav ul ul li a:hover { /* efecto de los elementos submenu al pasar por encima */
     background: #476c99;
     padding: 5px;
-}
-
-
-/* ###################################### */
-/* Estilo para la caja donde se muestra las paginas locales */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-#content-frame {
-  width: 100%;
-  min-height: 100%;
-  background-color: white;
-}
-
-/* Estilos para el segundo submenú */
-nav ul.sub-menu2 {
-  display: none;
-  position: absolute;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  max-width: auto;
-  max-height: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 1); /* agrega un contorno */
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 100%; /* Cambia la posición a la derecha del elemento del menú */
 }
