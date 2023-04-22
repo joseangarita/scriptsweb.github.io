@@ -8,8 +8,8 @@ body {
     
     /* Estilos para el formulario */
     form {
-    /*background-color: #2F4050; /* <azul oscuro>*/
-	background-color: #1F4B74; /*<azul claro> */
+    background-color: #2F4050; /* <azul oscuro>*/
+    /*background-color: #1F4B74; /*<azul claro> */
     padding: 10px;
     border-radius: 5px;
     width: auto;
