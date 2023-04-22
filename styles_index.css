@@ -2,11 +2,8 @@
 body {
     font-family: Arial, sans-serif;
     font-size: 14px;
-    background-color: #2F4050; /* <azul oscuro>*/
-	/* background-color: #79A341; <verde> */
-	/* background-color: #009DCA; <azul claro> */
-	/* background-color: #F3F3F4; */
-  /* background-color: #171D23; /* azul oscuro2 */
+    /*background-color: #2F4050; /* <azul oscuro>*/
+    background-color: #1F4B74; /*<azul claro> */
 }
 
 /* Estilo para la caja donde se muestra las paginas locales */
