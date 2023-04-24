@@ -70,12 +70,18 @@ body {
     
     /* Estilos para el botón de generar */
     button.generar {
-    background-color: #3e8e41;
+    background-color: #27A85D;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    }
+	button.generar:hover {
+    background-color: #0F733C;
+    /* background-color: rgb(189, 124, 40); */
+    /* transition: background-color 0.4s ease; /*tiempo  de transición del color */
+    border-radius: 5px;
     }
     
     /* Estilos para el botón de resetear */
@@ -87,19 +93,31 @@ body {
     border-radius: 5px;
     cursor: pointer;
     }
-
+	button.reset:hover {
+	color: white;
+	/* background-color: rgb(189, 124, 40); */
+	background-color: #D40000;
+	/* transition: background-color 0.2	s ease; /*tiempo  de transición del color */
+	}
+	
     /* Estilos para el botón de copiar */
     button.copiar {
-    background-color: #c4904d;
+    background-color: #EE8023;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     }
+	button.copiar:hover {
+	color: white;
+	/* background-color: rgb(189, 124, 40); */
+	background-color: #D1701F;
+	/* transition: background-color 0.2	s ease; /*tiempo  de transición del color */
+	}
     
     button:hover {
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     /* Estilos para el contenedor de los elementos */
