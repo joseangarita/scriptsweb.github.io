@@ -30,8 +30,7 @@ html, body {
 /* estilo para el boton de reiniciar pantalla */
 .reset-button {
     font-size: 14px;
-    /* background-color: #79A341;  COLOR VERDE1*/
-    background-color: #3e8e41; /* COLOR VERDE2*/
+    background-color: #27A85D; /* COLOR VERDE2*/
     color: white;
     padding: 10px;
     /* border: none; darle borde al boton si se elimina queda en borde negro */
@@ -137,7 +136,7 @@ nav ul.main-menu {
     font-size: 14px;
     text-decoration: none;
 	border-radius: 0;
-    transition: background-color 0.3s ease;
+    /*transition: background-color 0.3s ease;  /*tiempo  de transición del color */
   }
 
   /* Estilos para los enlaces de las listas cuando se hace hover */
