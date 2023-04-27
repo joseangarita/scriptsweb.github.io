@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Rate Limit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles2.css">
+	<link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+    <h1>Calculadora de Ancho de Banda</h1>
+    <form>
+        <label for="device">Dispositivo:</label><br>
+        <select id="device" name="device">
+            <option value=""></option>
+            <option value="cisco">Cisco</option>
+        </select><br><br>
+        <label for="speed">VELOCIDAD EN  bits O EN FORMATO 10m (Mbps), 512k (Kbps):</label><br>
+        <input type="text" id="speed" name="speed"><br>
+     </form> <br>
+     <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+        <button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
+        <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br>
+    <div id="comandos"></div><br><br>
+
+    <script>
+        function generarComandos() {
+            let device = document.querySelector('#device').value;
+            let speed = document.querySelector('#speed').value;
+            speed = convertToBits(speed);
+            let normalBurst = Math.floor(speed / 8 * 1.5);
+            let extendedBurst = Math.floor(2 * normalBurst);
+            let comandos;
+            if (device === 'cisco') {
+                comandos = `rate-limit input ${speed} ${normalBurst} ${extendedBurst} conform-action transmit exceed-action drop\nrate-limit output ${speed} ${normalBurst} ${extendedBurst} conform-action transmit exceed-action drop`;
+            }
+            document.querySelector('#comandos').textContent = comandos;
+        }
+
+        function convertToBits(speed) {
+            let lastChar = speed.slice(-1).toLowerCase();
+            let value = parseFloat(speed);
+            if (lastChar === 'm') {
+                speed = value * 1024 *1024;
+            } else if (lastChar === 'k') {
+                speed = value * 1024;
+            } else if (lastChar === 'g') {
+                speed = value * 1024 *1024 * 1024;
+            }
+            return speed;
+        }
+
+        function copiarComandos() {
+            let range = document.createRange();
+            range.selectNode(document.querySelector('#comandos'));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+        }
+
+        function resetForm() {
+            document.querySelector('#speed').value = '';
+            document.querySelector('#comandos').textContent = '';
+        }
+    </script>
+</body>
+</html>
