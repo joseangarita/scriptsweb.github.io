@@ -126,9 +126,16 @@ searchForm.addEventListener('submit', (event) => {
 	});
 	function showPage(page) {
 		document.getElementById('content-frame').src = page;
+			resetMainMenu();
 	}
 	function resetFrame() {
 		document.getElementById('content-frame').src = '';
+			resetMainMenu();
+	}
+	function resetMainMenu() {
+	  listItems.forEach((item) => {
+		item.style.display = 'list-item';
+	  });
 	}
 </script>
 </html>
