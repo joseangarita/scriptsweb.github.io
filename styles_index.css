@@ -120,12 +120,18 @@ nav ul li {
     position: relative;
     flex: 1; /* cada elemento del menú ocupa un espacio igual */
   }
+/*
 nav ul.main-menu {
     display: table;
     width: 99%;
     table-layout: fixed;
     top: auto;
- }
+ } */
+ nav ul.main-menu {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
  nav ul.main-menu > li {
     display: table-cell;
     position: relative;
