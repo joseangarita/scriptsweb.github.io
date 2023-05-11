@@ -132,6 +132,15 @@ nav ul.main-menu {
     justify-content: space-between;
     flex-wrap: nowrap;
 }
+/*
+nav ul {
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    /* display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap; */
+}
  nav ul.main-menu > li {
     display: table-cell;
     position: relative;
