@@ -1,61 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Vlans Sw_iMAP</title>
+<head>
+    <title>Vlans Sw</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles2.css"></head>
-  <link rel="shortcut icon" href="favicon.ico">
-<header>
-  <h1>Comandos Aprov Sw_iMap Core</h1>
-</header>
- </head>
-  <body>
-    <form>
-      <label for="equipo">EQUIPO:</label>
-      <select name="equipo" id="equipo">
-        <!-- <option value=""></option> -->
-        <option value="raisecom">Raisecom</option>
+	<link rel="stylesheet" href="styles_vlan.css">
+	<link rel="shortcut icon" href="favicon.ico">
+</head>
+<h1>Comandos Aprov Sw_iMap Core</h1>
+<body>
+<form>
+<label for="equipo">EQUIPO:</label>
+	  <select name="equipo" id="equipo" onchange="ocultarMostrarCampos()">
+        <option value=""></option>
+		<option value="raisecom">Raisecom</option>
         <option value="imap">iMap</option>
         <option value="at">AT</option>
         <option value="bdcom">Bdcom</option>
+		<option value="gpon_dotq">GPON Estandar</option>
+		<option value="gpon_qnq">GPON QnQ</option>
       </select>
-      <br>
-      <label for="user">Usuario:</label>
-      <input type="text" id="user" name="user">
-      <br>
+	  <label for="user">Usuario:</label >
+		<input type="text" id="user" name="user" style="display: none;">
       <label for="pass">Contraseña:</label>
-      <input type="text" id="pass" name="pass">
-      <br>
+		<input type="password" id="pass" name="pass" style="display: none;">
       <label for="vlan_id">ID Vlan:</label>
-      <input type="number" id="vlan_id" name="vlan_id">
-      <br><br>
-      <label for="vlan_name">Descripción Vlan:</label>
-      <input type="text" id="vlan_name" name="vlan_name">
-      <br>
-      <label for="pto_wan">Puerto WAN:</label>
-      <input type="text" id="pto_wan" name="pto_wan">
-      <br>
-      <label for="pto_lan">Puerto LAN:</label>
-      <input type="text" id="pto_lan" name="pto_lan">
-      <br>
-      <button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
-      <button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
-      <button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br>
-    </form>
-    
+		<input type="number" id="vlan_id" name="vlan_id" style="display: none;">
+      <label for="vlan_name">Desp Vlan:</label>
+		<input type="text" id="vlan_name" name="vlan_name" style="display: none;">
+      <label for="pto_wan">Pto WAN:</label>
+		<input type="text" id="pto_wan" name="pto_wan" style="display: none;">
+      <label for="pto_lan">Pto LAN:</label>
+		<input type="text" id="pto_lan" name="pto_lan" style="display: none;">
+	  <label for="perfil_id">ID Perfil:</label>
+		<input type="number" id="perfil_id" name="perfil_id" style="display: none;">
+	  <label for="perfil_name">Nombre Perfil:</label>
+		<input type="text" id="perfil_name" name="perfil_name" style="display: none;">
+	  <label for="hvlan_gpon">ID Hvlan:</label>
+		<input type="number" id="hvlan_gpon" name="hvlan_gpon" style="display: none;">
+	  <label for="vlan_gpon1">Vlan Estandar 1:</label>
+		<input type="number" id="vlan_gpon1" name="vlan_gpon1" style="display: none;">
+	  <label for="vlan_gpon2">Vlan Estandar 2:</label>
+		<input type="number" id="vlan_gpon2" name="vlan_gpon2" style="display: none;">
+	  <label for="pto_gpon">Pto GPON:</label>
+		<input type="text" id="pto_gpon" name="pto_gpon" style="display: none;">
+    </form><br>
+	<button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br>    
+	
     <div id="comandos"></div><br>
     <!-- <textarea id="comandos" rows="30" cols="100"></textarea> -->
     <script>
-      function resetForm() {
-        document.getElementById("equipo").selectedIndex = 0;
-        document.getElementById("user").value = "";
-        document.getElementById("pass").value = "";
-        document.getElementById("vlan_id").value = "";
-        document.getElementById("vlan_name").value = "";
-        document.getElementById("pto_wan").value = "";
-        document.getElementById("pto_lan").value = "";
-        document.getElementById("comandos").innerHTML = "";
-      }
+	function resetForm() {
+		<!-- document.getElementById("equipo").value = ""; -->
+		document.getElementById("user").value = "";
+		document.getElementById("pass").value = "";
+		document.getElementById("vlan_id").value = "";
+		document.getElementById("vlan_name").value = "";
+		document.getElementById("pto_wan").value = "";
+		document.getElementById("pto_lan").value = "";
+		document.getElementById("perfil_id").value = "";
+		document.getElementById("perfil_name").value = "";
+		document.getElementById("hvlan_gpon").value = "";
+		document.getElementById("vlan_gpon1").value = "";
+		document.getElementById("vlan_gpon2").value = "";
+		document.getElementById("pto_gpon").value = "";
+		document.getElementById("comandos").innerHTML = "";
+		
+		ocultarMostrarCampos(); // Restablecer la visibilidad de los campos al valor predeterminado
+	}
       function generarComandos() {
         var equipo = document.getElementById("equipo").value;
         var user = document.getElementById("user").value;
@@ -64,6 +76,12 @@
         var vlan_name = document.getElementById("vlan_name").value;
         var pto_wan = document.getElementById("pto_wan").value;
         var pto_lan = document.getElementById("pto_lan").value;
+		var perfil_id = document.getElementById("perfil_id").value;
+		var perfil_name = document.getElementById("perfil_name").value;
+		var hvlan_gpon = document.getElementById("hvlan_gpon").value;
+		var vlan_gpon1 = document.getElementById("vlan_gpon1").value;
+		var vlan_gpon2 = document.getElementById("vlan_gpon2").value;
+		var pto_gpon = document.getElementById("pto_gpon").value;
         
         var comandos = "";
         if (equipo == "raisecom") {
@@ -84,7 +102,7 @@
                       "exit " + "\n" +
                       "sh vlan " + vlan_id + "\n" + 
                       "write " + "\n" +
-                      "exit" + "\n"+ "\n"+ "\n";
+                      "exit" + "\n";
                       
         } else if (equipo == "imap") {
           comandos =  user + "\n" +
@@ -97,7 +115,7 @@
                       "add vlan " + vlan_id + " interf " + pto_lan + " frame tag" + "\n" +
                       "sh vlan " + vlan_id + "\n" +
                       "exit" + "\n" +
-                      "exit" + "\n"+ "\n"+ "\n";
+                      "exit" + "\n";
                       
         } else if (equipo == "at") {
           comandos =  user + "\n" +
@@ -116,13 +134,13 @@
                       "exit " + "\n" +
                       "sh vlan " + vlan_id + "\n" + 
                       "write " + "\n" +
-                      "exit" + "\n"+ "\n"+ "\n";
+                      "exit" + "\n";
           } else if (equipo == "bdcom") {
             comandos =  user + "\n" +
                       pass + "\n" + "\n" +
                       "ena " + "\n" + "\n" +
                       "1tx7" + "\n" + "\n" +
-                      "show vlan id " + vlan_id + "\n" +
+                      "show vlan " + vlan_id + "\n" +
                       "conf" + "\n" +
                       "vlan " + vlan_id + "\n" +
                       "name " + vlan_name + "\n" +
@@ -133,23 +151,190 @@
                       "swi trunk vlan-allowed add " + vlan_id + "\n" +
                       "exit" + "\n" +
                       "exit " + "\n" +
-                      "sh vlan id " + vlan_id + "\n" + 
+                      "sh vlan " + vlan_id + "\n" + 
                       "write " + "\n" +
-                      "exit" + "\n"+ "\n"+ "\n";
+                      "exit" + "\n";
+             
+        } else if (equipo == "gpon_dotq") {
+            comandos = "## Crear vlan y agregarla al puerto WAN:" + "\n"+ 
+					  "create vlan " + vlan_gpon1 + " active" + "\n" +		
+                      "vlan " + vlan_gpon1 + "\n" +
+					  "name " + perfil_name + "\n" + "exit" + "\n" +
+					  "interface ten-gigabitethernet 1/1" + "\n" +
+					  "switchport trunk allowed vlan add " + vlan_gpon1 + "\n" +
+					  "exit"+"\n"+ "\n"+
+					  "## Crear line profile Vlan Estandar:" + "\n" +
+					  "gpon-onu-line-profile " + perfil_id + "\n" + 
+                      "name " + perfil_name + "\n" +
+					  "fec upstream disable" + "\n" + 
+                      "omcc encryption disable" + "\n" +
+					  "create tcont 1 dba-profile 1" + "\n" +
+					  "create gem 1 tcont 1" + "\n" + 
+					  "gem 1 mapping 1 vlan " + vlan_gpon1 + "\n"+
+					  "gem 1 mapping 2 vlan " + vlan_gpon2 + "\n"+
+					  "quit" + "\n" + "\n" + 
+					  "## Crear service profile Vlan Estandar:" + "\n"+
+                      "gpon-onu-service-profile " + perfil_id + "\n" +
+                      "name " + perfil_name + "\n" +
+                      "port-num ethernet 1" + "\n"+
+					  "uni ethernet 1 vlan mode trunk" + "\n"+
+					  "uni ethernet 1 vlan trunk allowed " + vlan_gpon1 + "," + vlan_gpon2+"\n"+
+					  "quit" + "\n" + "\n" +
+					  "## Adicionar serial con line y service profile a interface gpon:" + "\n"+
+					  "interface gpon-olt " + pto_gpon + "\n" +
+					  "create gpon-onu XX_GPON_ONU sn SERIAL_ONU line-profile-id " + perfil_id + " service-profile-id " + perfil_id + "\n" + 
+					  "quit" + "\n"+"\n"+
+					  "write startup-config" + "\n" + "\n" + 
+                      "quit" + "\n";
+             
+        } else if (equipo == "gpon_qnq") {
+            comandos = "## Crear vlan y agregarla al puerto WAN:" + "\n"+ 
+					  "create vlan " + hvlan_gpon + " active" + "\n" +		
+                      "vlan " + hvlan_gpon + "\n" +
+					  "name " + perfil_name + "\n" + "exit" + "\n" +
+					  "interface ten-gigabitethernet 1/1" + "\n" +
+					  "switchport trunk allowed vlan add " + hvlan_gpon + "\n" +
+					  "exit"+"\n"+ "\n"+
+					  "## Crear service profile Hvlan Desencapsulando:" + "\n"+
+					  "gpon-onu-service-profile " + perfil_id + "\n" +
+					  "name " + perfil_name + "\n" +
+					  "port-num ethernet 1" + "\n" +
+					  "uni ethernet 1 vlan mode tagged" + "\n" +
+					  "uni ethernet 1 native vlan " + hvlan_gpon + "\n" + 
+					  "uni ethernet 1 max-frame-size 9000"  + "\n" +
+					  "uni ethernet 1 vlan dot1q-tunnel enable" + "\n" +
+					  "quit" + "\n" +"\n" +
+					  "## Crear line profile Hvlan Desencapsulando:" + "\n"+
+					  "gpon-onu-line-profile " + perfil_id + "\n"+ 
+					  "name " + perfil_name + "\n" + 
+					  "mapping-mode port" + "\n"+
+					  "fec upstream disable" + "\n"+
+					  "omcc encryption disable" + "\n"+
+					  "create tcont 1 dba-profile 1" + "\n"+
+					  "create gem 1 tcont 1" + "\n" + 
+					  "gem 1 mapping 1 ethernet 1" + "\n"+
+					  "quit" + "\n" + "\n" +
+					  "## Adicionar serial con line y service profile a interface gpon:" + "\n"+
+					  "interface gpon-olt " + pto_gpon + "\n" +
+					  "create gpon-onu XX_GPON_ONU sn SERIAL_ONU line-profile-id " + perfil_id + " service-profile-id " + perfil_id + "\n" + 
+					  "quit" + "\n"+"\n"+
+					  "write startup-config" + "\n" + "\n" + 
+                      "quit" + "\n";
              
         }
         document.getElementById("comandos").innerHTML = "<pre>" + comandos + "</pre>";
       }
-      function copiarComandos() {
-        var comandos = document.getElementById("comandos").textContent;
-        var textarea = document.createElement("textarea");
-        textarea.value = comandos;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-        alert("Comandos copiados al portapapeles.");
-      }
+  function ocultarMostrarCampos() { //OCULTAR/VISUALIZAR CAMPOS RESPECTO A SELECCION DE EQUIPO
+	  var equipo = document.getElementById("equipo").value;
+	  var camposUsuario = document.getElementById("user");
+	  var camposContraseña = document.getElementById("pass");
+	  var camposIdVlan = document.getElementById("vlan_id");
+	  var camposDespVlan = document.getElementById("vlan_name");
+	  var camposPtoWan = document.getElementById("pto_wan");
+	  var camposPtoLan = document.getElementById("pto_lan");
+	  var camposIdPerfil = document.getElementById("perfil_id");
+	  var camposNombrePerfil = document.getElementById("perfil_name");
+	  var camposIdHvlan = document.getElementById("hvlan_gpon");
+	  var camposVlanEstandar1 = document.getElementById("vlan_gpon1");
+	  var camposVlanEstandar2 = document.getElementById("vlan_gpon2");
+	  var camposPtoGpon = document.getElementById("pto_gpon");
+	  var labelUsuario = document.querySelector("label[for='user']");
+	  var labelContraseña = document.querySelector("label[for='pass']");
+	  var labelIdVlan = document.querySelector("label[for='vlan_id']");
+	  var labelDespVlan = document.querySelector("label[for='vlan_name']");
+	  var labelPtoWan = document.querySelector("label[for='pto_wan']");
+	  var labelPtoLan = document.querySelector("label[for='pto_lan']");
+	  var labelIdPerfil = document.querySelector("label[for='perfil_id']");
+	  var labelNombrePerfil = document.querySelector("label[for='perfil_name']");
+	  var labelIdHvlan = document.querySelector("label[for='hvlan_gpon']");
+	  var labelVlanEstandar1 = document.querySelector("label[for='vlan_gpon1']");
+	  var labelVlanEstandar2 = document.querySelector("label[for='vlan_gpon2']");
+	  var labelPtoGpon = document.querySelector("label[for='pto_gpon']");
+	    
+	  
+    if (equipo === "gpon_dotq") { //"none" no muestra el campo / "block" lo muestra en pantalla
+        //ocultos visibles
+		labelUsuario.style.display = "none";
+		labelContraseña.style.display = "none";
+		labelIdVlan.style.display = "none";
+		labelDespVlan.style.display = "none";
+		labelPtoWan.style.display = "none";
+		labelPtoLan.style.display = "none";
+		camposUsuario.style.display = "none";
+        camposContraseña.style.display = "none";
+        camposIdVlan.style.display = "none";
+        camposDespVlan.style.display = "none";
+        camposPtoWan.style.display = "none";
+        camposPtoLan.style.display = "none";
+		//campos visibles
+		labelIdPerfil.style.display = "block";
+		labelNombrePerfil.style.display = "block";
+		labelIdHvlan.style.display = "none";
+		labelVlanEstandar1.style.display = "block";
+		labelVlanEstandar2.style.display = "block";
+		labelPtoGpon.style.display = "block";
+        camposIdPerfil.style.display = "block";
+		camposNombrePerfil.style.display = "block";
+        camposIdHvlan.style.display = "none";
+        camposVlanEstandar1.style.display = "block";
+		camposVlanEstandar2.style.display = "block";
+        camposPtoGpon.style.display = "block";
+	} else if (equipo === "gpon_qnq") { //"none" no muestra el campo / "block" lo muestra en pantalla
+        //campos oculto
+		labelUsuario.style.display = "none";
+		labelContraseña.style.display = "none";
+		labelIdVlan.style.display = "none";
+		labelDespVlan.style.display = "none";
+		labelPtoWan.style.display = "none";
+		labelPtoLan.style.display = "none";
+		camposUsuario.style.display = "none";
+        camposContraseña.style.display = "none";
+        camposIdVlan.style.display = "none";
+        camposDespVlan.style.display = "none";
+        camposPtoWan.style.display = "none";
+        camposPtoLan.style.display = "none";
+		//campos visibles
+		labelIdPerfil.style.display = "block";
+		labelNombrePerfil.style.display = "block";
+		labelIdHvlan.style.display = "block";
+		labelVlanEstandar1.style.display = "none";
+		labelVlanEstandar2.style.display = "none";
+		labelPtoGpon.style.display = "block";
+		camposIdPerfil.style.display = "block";
+		camposNombrePerfil.style.display = "block";
+        camposIdHvlan.style.display = "block";
+        camposVlanEstandar1.style.display = "none";
+		camposVlanEstandar2.style.display = "none";
+        camposPtoGpon.style.display = "block";
+    } else if (equipo === "raisecom" || equipo === "at" || equipo === "imap" || equipo === "bdcom"){
+        //campos visibles
+		labelUsuario.style.display = "block";
+		labelContraseña.style.display = "block";
+		labelIdVlan.style.display = "block";
+		labelDespVlan.style.display = "block";
+		labelPtoWan.style.display = "block";
+		labelPtoLan.style.display = "block";
+		camposUsuario.style.display = "block";
+        camposContraseña.style.display = "block";
+        camposIdVlan.style.display = "block";
+        camposDespVlan.style.display = "block";
+        camposPtoWan.style.display = "block";
+        camposPtoLan.style.display = "block";
+		//campos ocultos
+		labelIdPerfil.style.display = "none";
+		labelNombrePerfil.style.display = "none";
+		labelIdHvlan.style.display = "none";
+		labelVlanEstandar1.style.display = "none";
+		labelVlanEstandar2.style.display = "none";
+		labelPtoGpon.style.display = "none";
+        camposIdPerfil.style.display = "none";
+		camposNombrePerfil.style.display = "none";
+        camposIdHvlan.style.display = "none";
+        camposVlanEstandar1.style.display = "none";
+		camposVlanEstandar2.style.display = "none";
+        camposPtoGpon.style.display = "none";
+    }
+}
     </script>
   </body>
 </html>
