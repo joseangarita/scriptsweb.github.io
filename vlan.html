@@ -45,6 +45,7 @@
 		<input type="text" id="pto_gpon" name="pto_gpon" style="display: none;">
     </form><br>
 	<button type="button" class="generar" onclick="generarComandos()">Generar comandos</button>
+	<button type="button" class="copiar" onclick="copiarComandos()">Copiar comandos</button>
 	<button type="button" class="reset" onclick="resetForm()">Limpiar Campos</button><br>    
 	
     <div id="comandos"></div><br>
@@ -335,6 +336,16 @@
         camposPtoGpon.style.display = "none";
     }
 }
+      function copiarComandos() {
+        var comandos = document.getElementById("comandos").textContent;
+        var textarea = document.createElement("textarea");
+        textarea.value = comandos;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Comandos copiados al portapapeles.");
+      }
     </script>
   </body>
 </html>
