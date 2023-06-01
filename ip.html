@@ -93,7 +93,7 @@
                       "sh route vrf INTERNET ipv6 unicast | begin " + red_lan_ipv6 + "\n" + 
                       "ping vrf INTERNET " + wan_ipv4 + "\n" + 
                       "ping vrf INTERNET " + wan_ipv6 + "\n" + 
-                      "sh arp vrf INTERNET | Include " + wan_ipv4 + "\n" +
+                      "sh arp vrf INTERNET | Include " + wan_ipv4 + "\n" + "\n" +
                       "conf t" + "\n" +  "\n" +
                       "router sta vrf INTERNET address-family ipv4 unicast" + "\n" +  
                       red_lan_ipv4 + " " + wan_ipv4 + " description " + descrip_ruta + "\n" + 
