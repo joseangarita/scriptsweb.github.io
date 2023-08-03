@@ -388,7 +388,7 @@
 				'Municipal MX':[
 				"## MUNICIPAL Juniper 10.248.1.246" + "\n"+
 				"edit" + "\n"+
-				"edit interfaces xe0/1/0 unit " + vlan_id + "\n"+
+				"edit interfaces xe-0/1/0 unit " + vlan_id + "\n"+
 				"set description Enlace-CaliASR-Municipal-"+vlan_name+"-vpls-"+vlan_id + "\n"+
 				"set encapsulation vlan-vpls vlan-id "+vlan_id + "\n"+
 				"set input-vlan-map pop" + "\n"+
@@ -396,7 +396,7 @@
 				"top"+ "\n"+
 				"edit routing-instances VPLS-"+ vlan_id + "\n"+
 				"set instance-type vpls vlan-id all"+ "\n"+ 
-				"set interface xe0/1/0." + vlan_id + "\n"+
+				"set interface xe-0/1/0." + vlan_id + "\n"+
 				"edit protocols vpls"+ "\n"+ 
 				"set mtu 9600" + "\n" + 
 				"set no-control-word no-tunnel-services vpls-id "+ vlan_id + "\n"+
