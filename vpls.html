@@ -20,6 +20,7 @@
       <option value="Cali MX">Cali MX</option>
       <option value="Cali Norte MX">Cali Norte MX</option>
       <option value="Cucuta MX">Cucuta MX</option>
+      <option value="Etix MX">Etix MX</option>
       <option value="Ibague MX">Ibague MX</option>
       <option value="Medellin MX">Medellin MX</option>
       <option value="Melendez MX">Melendez MX</option>
@@ -29,6 +30,7 @@
       <option value="Pasto MX">Pasto MX</option>
       <option value="Pereira MX">Pereira MX</option>
       <option value="Roosevelt MX">Roosevelt MX</option>
+      <option value="Vipasa MX">Vipasa MX</option>
 
     </select>
     <br>
@@ -43,6 +45,7 @@
       <option value="Cali MX">Cali MX</option>
       <option value="Cali Norte MX">Cali Norte MX</option>
       <option value="Cucuta MX">Cucuta MX</option>
+      <option value="Etix MX">Etix MX</option>
       <option value="Ibague MX">Ibague MX</option>
       <option value="Medellin MX">Medellin MX</option>
       <option value="Melendez MX">Melendez MX</option>
@@ -52,6 +55,7 @@
       <option value="Pasto MX">Pasto MX</option>
       <option value="Pereira MX">Pereira MX</option>
       <option value="Roosevelt MX">Roosevelt MX</option>
+      <option value="Vipasa MX">Vipasa MX</option>
 
     </select>
     <br>
@@ -99,6 +103,7 @@ let comandosPorCiudad = {
 	'Cali MX':"edit\nedit interfaces ae16 unit VLAN_ID\nset description Enlace-Cali_MX-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae16.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Cali Norte MX':"edit\nedit interfaces et-0/0/2 unit VLAN_ID\nset description Enlace-CaliNorte-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface et-0/0/2.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Cucuta MX':"edit\nedit interfaces ae1 unit VLAN_ID\nset description Enlace-Cucuta-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae1.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
+	'Etix MX':"edit\nedit interfaces ae3 unit VLAN_ID\nset description Enlace-CaliEtix-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae3.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Ibague MX':"edit\nedit interfaces ae2 unit VLAN_ID\nset description Enlace-Ibague-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae2.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Medellin MX':"edit\nedit interfaces ae5 unit VLAN_ID\nset description Enlace-Medellin-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae5.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Melendez MX':"edit\nedit interfaces xe-0/1/2 unit VLAN_ID\nset description Enlace-Cali_Melendez-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface xe-0/1/2.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
@@ -107,7 +112,8 @@ let comandosPorCiudad = {
 	'Pance MX':"edit\nedit interfaces xe-0/1/7 unit VLAN_ID\nset description Enlace-Cali_Pance-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface xe-0/1/7.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Pasto MX':"edit\nedit interfaces ae1 unit VLAN_ID\nset description Enlace-Pasto-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae1.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
 	'Pereira MX':"edit\nedit interfaces ae5 unit VLAN_ID\nset description Enlace-Pereira-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface ae5.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
-	'Roosevelt MX':"edit\nedit interfaces xe-0/1/0 unit VLAN_ID\nset description Enlace-Cali_Roosevelt-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface xe-0/1/0.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n"
+	'Roosevelt MX':"edit\nedit interfaces xe-0/1/0 unit VLAN_ID\nset description Enlace-Cali_Roosevelt-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface xe-0/1/0.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n",
+	'Vipasa MX':"edit\nedit interfaces et-0/0/2 unit VLAN_ID\nset description Enlace-Cali_Vipasa-VLAN_DESCRIPCION-vpls-VLAN_ID\nset encapsulation vlan-vpls vlan-id VLAN_ID\nset input-vlan-map pop\nset output-vlan-map push\ntop\nedit routing-instances VPLS-VLAN_ID\nset instance-type vpls vlan-id all\nset interface et-0/0/2.VLAN_ID\nedit protocols vpls\nset mtu 9600\nset no-control-word no-tunnel-services vpls-id VLAN_ID\nedit neighbor ORIGEN_O_DESTINO\nset encapsulation-type ethernet pseudowire-status-tlv\ntop\nshow | compare\ncommit\nexit\nshow vpls connections instance VPLS-VLAN_ID brief\n\n\n"
 	
 };
 
@@ -120,6 +126,7 @@ let comandosPorCiudad = {
 				'Cali MX':["10.248.10.18"],
 				'Cali Norte MX':["10.248.1.242"],
 				'Cucuta MX':["10.248.10.16"],
+				'Etix MX':["10.248.1.247"],
 				'Ibague MX':["10.248.10.14"],
 				'Medellin MX':["10.248.10.11"],
 				'Melendez MX':["10.248.1.244"],
@@ -128,7 +135,8 @@ let comandosPorCiudad = {
 				'Pance MX':["10.248.1.245"],
 				'Pasto MX':["10.248.10.17"],
 				'Pereira MX':["10.248.10.3"],
-				'Roosevelt MX':["10.248.1.243"]
+				'Roosevelt MX':["10.248.1.243"],
+				'Vipasa MX':["10.248.1.241"]
         };
 
         origen.addEventListener("change", function() {
